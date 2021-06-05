@@ -25,7 +25,7 @@ before_deploy:
 - mkdir build
 - TAG_VERSION=${TRAVIS_TAG%%-*}
 - FILENAME=NNDD_${TAG_VERSION//./_}
-- wget -P ./build https://github.com/SSW-SCIENTIFIC/NNDD/releases/download/$TRAVIS_TAG/${FILENAME}.air
+- wget -P ./build https://github.com/nndd-reboot/NNDD/releases/download/$TRAVIS_TAG/${FILENAME}.air
 - ls -al build/
 - adt -package -target native $(pwd)/build/${FILENAME}.dmg $(pwd)/build/${FILENAME}.air
 deploy:
