@@ -392,9 +392,9 @@ public function initNNDD(nndd: NNDD): void {
 
     this.version = VersionUtil.instance.versionNumber;
 
-    this.title = "NNDD+DMC - v" + VersionUtil.instance.versionLabel;
+    this.title = "NNDD-5ch - v" + VersionUtil.instance.versionLabel;
 
-    var userAgent: String = URLRequestDefaults.userAgent + " NNDD+DMC/" + this.version;
+    var userAgent: String = URLRequestDefaults.userAgent + " NNDD-5ch/" + this.version;
 
     // 外部ライブラリを呼び出した後でuserAgentを設定しないとUserAgentが正しく設定されない?
     UserAgentManager.instance.userAgent = userAgent;

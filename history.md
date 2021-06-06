@@ -1,4 +1,4 @@
-NNDD+DMC/NNDD Update History
+NNDD-5ch/NNDD+DMC/NNDD Update History
 ============================
 
 Author
@@ -8,8 +8,14 @@ Author
 
 ### SSW-SCIENTIFIC - DMC Supported Version (2.4.4-)
 
+### nndd-reboot - 5chメンテナンス版 (4.1.0-)
+
 History
 -------
+
+### 2021-06-07 v4.1.0
+* forkに伴う修正
+* コメント仕様変更に対応
 
 ### 2021-03-16 v4.0.1
 * プレミアム会員以外で動画を再生出来ない不具合を修正
