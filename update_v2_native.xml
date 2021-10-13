@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <update xmlns="http://ns.riaspace.com/air/framework/update/description/1.1">
     <dmg>
-        <version>4.1.1</version>
-        <url>https://github.com/nndd-reboot/NNDD/releases/download/v4.1.1/NNDD_v4_1_1.dmg</url>
+        <version>4.1.2</version>
+        <url>https://github.com/nndd-reboot/NNDD/releases/download/v4.1.2/NNDD_v4_1_2.dmg</url>
         <description><![CDATA[
+2021-10-14 v4.1.2
+・検索画面のページ送りのバグ修正
+・検索画面でコメントが0件の動画にnullと表示されるバグを修正
+
 2021-10-14 v4.1.1
 ・検索仕様変更に対応
 　・今後は毎朝5時時点での情報での検索になるためWebでの検索と結果が異なります
@@ -200,9 +204,13 @@
     </dmg>
 
     <exe>
-        <version>4.1.1</version>
-        <url>https://github.com/nndd-reboot/NNDD/releases/download/v4.1.1/NNDD_v4_1_1.exe</url>
+        <version>4.1.2</version>
+        <url>https://github.com/nndd-reboot/NNDD/releases/download/v4.1.2/NNDD_v4_1_2.exe</url>
         <description><![CDATA[
+2021-10-14 v4.1.2
+・検索画面のページ送りのバグ修正
+・検索画面でコメントが0件の動画にnullと表示されるバグを修正
+
 2021-10-14 v4.1.1
 ・検索仕様変更に対応
 　・今後は毎朝5時時点での情報での検索になるためWebでの検索と結果が異なります
