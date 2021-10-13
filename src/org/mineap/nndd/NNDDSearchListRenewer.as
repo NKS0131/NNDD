@@ -105,7 +105,7 @@ package org.mineap.nndd {
 
             LogManager.instance.addLog("検索APIへアクセス中...");
 
-            this._searchLoader.search(_searchType, encodeURIComponent(_word), _page, sort, order);
+            this._searchLoader.search(_searchType, _word, _page, sort, order);
         }
 
         private function loadCompleteEventHandler(event: Event): void {

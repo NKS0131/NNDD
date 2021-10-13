@@ -48,42 +48,6 @@ package org.mineap.nndd.model {
          */
         public static const ORDER_A: int = 1;
 
-        /*------- ↓ ココから検索実行時に使う文字 ----------*/
-
-        /**
-         *
-         */
-        public static const CONTRIBUTE_STRING: String = "f";
-        /**
-         *
-         */
-        public static const PLAY_COUNT_STRING: String = "v";
-        /**
-         *
-         */
-        public static const COMMENT_COUNT_STRING: String = "r";
-        /**
-         *
-         */
-        public static const COMMENT_TIME_STRING: String = "n";
-        /**
-         *
-         */
-        public static const MYLIST_COUNT_STRING: String = "m";
-        /**
-         *
-         */
-        public static const PLAY_TIME_STRING: String = "l";
-
-        /**
-         *
-         */
-        public static const ORDER_D_STRING: String = "d";
-        /**
-         *
-         */
-        public static const ORDER_A_STRING: String = "a";
-
         /**
          * 指定されたintのソート順序をnicovideo4asのSearchSortTypeに変換して返します
          *
