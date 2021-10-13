@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <update xmlns="http://ns.riaspace.com/air/framework/update/description/1.1">
     <dmg>
-        <version>4.1.0</version>
-        <url>https://github.com/nndd-reboot/NNDD/releases/download/v4.1.0/NNDD_v4_1_0.dmg</url>
+        <version>4.1.1</version>
+        <url>https://github.com/nndd-reboot/NNDD/releases/download/v4.1.1/NNDD_v4_1_1.dmg</url>
         <description><![CDATA[
+2021-10-14 v4.1.1
+・検索仕様変更に対応
+　・今後は毎朝5時時点での情報での検索になるためWebでの検索と結果が異なります
+
 2021-06-07 v4.1.0
 ・forkに伴う修正
 ・コメント仕様変更に対応
@@ -196,9 +200,13 @@
     </dmg>
 
     <exe>
-        <version>4.1.0</version>
-        <url>https://github.com/nndd-reboot/NNDD/releases/download/v4.1.0/NNDD_v4_1_0.exe</url>
+        <version>4.1.1</version>
+        <url>https://github.com/nndd-reboot/NNDD/releases/download/v4.1.1/NNDD_v4_1_1.exe</url>
         <description><![CDATA[
+2021-10-14 v4.1.1
+・検索仕様変更に対応
+　・今後は毎朝5時時点での情報での検索になるためWebでの検索と結果が異なります
+
 2021-06-07 v4.1.0
 ・forkに伴う修正
 ・コメント仕様変更に対応
