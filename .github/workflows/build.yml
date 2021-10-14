@@ -1,13 +1,11 @@
-name: release
+name: build
 on:
-  release:
-    types:
-      - published
+  push:
+    branches:
+      - master
 jobs:
   build-air:
     runs-on: ubuntu-latest
-    outputs:
-      slug: ${{ steps.slug.outputs.text }}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -37,19 +35,6 @@ jobs:
           name: air
           path: src/NNDD.air
 
-      - name: tag slug
-        id: slug
-        run: echo $GITHUB_REF | sed -r -e 's/.*\/([^/]+)$/\1/' -e 's/\./_/g' -e 's/^/::set-output name=text::/'
-
-      - uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: src/NNDD.air
-          asset_name: NNDD_${{ steps.slug.outputs.text }}.air
-          asset_content_type: application/octet-stream
-
   build-exe:
     needs: build-air
     runs-on: windows-latest
@@ -68,14 +53,10 @@ jobs:
         run: |
           air/bin/adt.bat -package -target native NNDD.exe NNDD.air
 
-      - uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/upload-artifact@v2
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: NNDD.exe
-          asset_name: NNDD_${{ needs.build-air.outputs.slug }}.exe
-          asset_content_type: application/octet-stream
+          name: exe
+          path: NNDD.exe
 
   build-dmg:
     needs: build-air
@@ -95,11 +76,7 @@ jobs:
         run: |
           air/bin/adt -package -target native NNDD.dmg NNDD.air
 
-      - uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/upload-artifact@v2
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: NNDD.dmg
-          asset_name: NNDD_${{ needs.build-air.outputs.slug }}.dmg
-          asset_content_type: application/octet-stream
+          name: dmg
+          path: NNDD.dmg
