@@ -6,6 +6,8 @@ on:
 jobs:
   build-air:
     runs-on: ubuntu-latest
+    env:
+      AIR_HOME: /opt/airsdk
     steps:
       - uses: actions/checkout@v2
         with:
@@ -17,18 +19,17 @@ jobs:
           curl http://fpdownload.macromedia.com/air/win/download/32.0/AdobeAIRSDK.zip -O
           curl https://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/frameworks/libs/OSMF2_0.swc?format=raw -o osmf.swc
           tar xzf apache-flex-sdk-4.16.1-bin.tar.gz
-          mv apache-flex-sdk-4.16.1-bin /opt/flex
-          unzip AdobeAIRSDK.zip -d /opt/flex
-          mv osmf.swc /opt/flex/frameworks/libs/
+          mv apache-flex-sdk-4.16.1-bin $AIR_HOME
+          unzip AdobeAIRSDK.zip -d $AIR_HOME
+          mv osmf.swc $AIR_HOME/frameworks/libs/
 
       - name: build
         env:
           certificate_password: ${{ secrets.NNDD_5CH_CERTIFICATE_PASSWORD }}
-          AIR_HOME: /opt/flex
         run: |
           cd src
-          /opt/flex/bin/amxmlc NNDD.mxml -compiler.include-libraries ../libs/* -warnings=false
-          java -jar /opt/flex/lib/adt.jar -package -storetype pkcs12 -keystore ../nndd-5ch_certificate.pfx -storepass $certificate_password NNDD.air NNDD-app.xml NNDD.swf icon32.png icon128.png icon48.png icon16.png CategoryList.json
+          $AIR_HOME/bin/amxmlc NNDD.mxml -compiler.include-libraries ../libs/* -warnings=false
+          java -jar $AIR_HOME/lib/adt.jar -package -storetype pkcs12 -keystore ../nndd-5ch_certificate.pfx -storepass $certificate_password NNDD.air NNDD-app.xml NNDD.swf icon32.png icon128.png icon48.png icon16.png CategoryList.json
 
       - uses: actions/upload-artifact@v2
         with:
