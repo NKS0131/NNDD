@@ -1,4 +1,4 @@
-.PHONY: all build pathcheck
+.PHONY: all build pathcheck with-docker
 
 all: build
 
@@ -16,3 +16,6 @@ NNDD.air: pathcheck NNDD.swf
 
 NNDD.swf: pathcheck
 	@$$AIR_HOME/bin/amxmlc NNDD.mxml -compiler.include-libraries ../libs/* -warnings=false
+
+with-docker:
+	@docker run --rm -it -v $$(cd ../ && pwd):/root/NNDD nndd-builder /bin/sh -c 'cd /root/NNDD && make'
