@@ -2,13 +2,13 @@
 .DEFAULT_GOAL=help
 
 build: ## NNDD.air をビルドします
-	@cd src && make
+	@cd src && make build
 
 with-docker: ## Dockerコンテナを使って NNDD.air をビルドします
 	@cd src && make with-docker
 
 builder-img: ## NNDDビルド用のDockerイメージをビルドします
-	@cd containers/builder && make
+	@cd containers/builder && make build
 
 pathcheck:
 	@if [ -z "$$AIR_HOME" ]; then \

@@ -1,6 +1,5 @@
 .PHONY: all build download build-with-squash
-
-all: build
+.DEFAULT_GOAL=build
 
 build: download
 	@echo 'コンテナをビルドします'
