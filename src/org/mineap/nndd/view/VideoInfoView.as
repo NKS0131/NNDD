@@ -74,6 +74,7 @@ public var isShowAlwaysNicowariArea: Boolean = false;
 public var selectedResizeType: int = RESIZE_TYPE_NICO;
 public var isAlwaysEconomyForStreaming: Boolean = false;
 public var isHideTagArea: Boolean = false;
+public var isHidePlaySourceStatus: Boolean = false;
 public var isAppendComment: Boolean = false;
 public var isHideSekaShinComment: Boolean = false;
 public var isShowHTMLOwnerComment: Boolean = true;
@@ -352,6 +353,10 @@ private function checkboxHideTagAreaChanged(event: Event): void {
         }
     }
     this.videoPlayer.videoController.resetAlpha(true);
+}
+
+private function checkboxHidePlaySourceStatusChanged(event: Event): void {
+    this.isHidePlaySourceStatus = this.checkbox_hidePlaySourceStatus.selected;
 }
 
 public function changeWideMode(): void {
@@ -876,6 +881,7 @@ private function configCanvas3CreationCompleteHandler(event: FlexEvent): void {
     checkBox_isNotPlayNicowari.selected = isNotPlayNicowari;
     checkBox_showAlwaysNicowariArea.selected = isShowAlwaysNicowariArea;
     checkbox_hideTagArea.selected = isHideTagArea;
+    checkbox_hidePlaySourceStatus.selected = isHidePlaySourceStatus;
     checkbox_hideUnderController.selected = isHideUnderController;
 
     checkBox_enableJump.selected = isEnableJump;
@@ -1085,6 +1091,13 @@ private function readStore(): void {
             //何もしない
         } else {
             isHideTagArea = ConfUtil.parseBoolean(confValue);
+        }
+
+        confValue = ConfigManager.getInstance().getItem("isHidePlaySourceStatus");
+        if (confValue == null) {
+            //何もしない
+        } else {
+            isHidePlaySourceStatus = ConfUtil.parseBoolean(confValue);
         }
 
         confValue = ConfigManager.getInstance().getItem("isAlwaysEconomyForStreaming");
@@ -1363,6 +1376,9 @@ public function saveStore(): void {
 
         ConfigManager.getInstance().removeItem("isHideTagArea");
         ConfigManager.getInstance().setItem("isHideTagArea", isHideTagArea);
+
+        ConfigManager.getInstance().removeItem("isHidePlaySourceStatus");
+        ConfigManager.getInstance().setItem("isHidePlaySourceStatus", isHidePlaySourceStatus);
 
         ConfigManager.getInstance().removeItem("isAppendComment");
         ConfigManager.getInstance().setItem("isAppendComment", isAppendComment);

@@ -158,12 +158,10 @@ private function hideController(event: TimerEvent): void {
             }
             if (videoPlayer != null) {
 //				videoPlayer.text_shortCutInfo.alpha = bAlpha;
-                if (percent >= 100) {
-                    videoPlayer.label_playSourceStatus.alpha = statusAlpha;
-                } else {
-                    statusAlpha = 1;
-                    videoPlayer.label_playSourceStatus.alpha = statusAlpha;
+                if (!videoPlayer.videoInfoView.isHidePlaySourceStatus && percent < 100) {
+                    statusAlpha = 1
                 }
+                videoPlayer.label_playSourceStatus.alpha = statusAlpha;
 //				videoPlayer.button_ChangeFullScreen.alpha = bAlpha;
 //				videoPlayer.button_ChangeShowInfoView.alpha = bAlpha;
                 videoPlayer.hbox_displayButtons.alpha = bAlpha;

@@ -925,6 +925,10 @@
                                              rollOut="videoPlayer.videoController.rollOut(event)"
                                              rollOver="videoPlayer.videoController.rollOver(event)"
                                              toolTip="Player下のコントローラを隠します。動画再生画面に半透明のコントローラが表示されます。"/>
+                                <mx:CheckBox label="Playerのストリーミング状況表示を隠す"
+                                             id="checkbox_hidePlaySourceStatus"
+                                             change="checkboxHidePlaySourceStatusChanged(event)"
+                                             toolTip="Player操作時以外は右上の動画読み込み状況・ダウンロード速度表示を隠します。"/>
                                 <mx:CheckBox label="Playerを開いたときに「動画を開く」ダイアログも一緒に開く"
                                              id="checkBox_openFileDialogWhenOpenPlayer"
                                              click="checkBox_openFileDialogWhenOpenPlayer_clickHandler(event)"
