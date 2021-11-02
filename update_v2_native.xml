@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <update xmlns="http://ns.riaspace.com/air/framework/update/description/1.1">
     <dmg>
-        <version>4.1.2</version>
-        <url>https://github.com/nndd-reboot/NNDD/releases/download/v4.1.2/NNDD_v4_1_2.dmg</url>
+        <version>4.2.0</version>
+        <url>https://github.com/nndd-reboot/NNDD/releases/download/v4.2.0/NNDD_v4_2_0.dmg</url>
         <description><![CDATA[
+2021-11-02 v4.2.0
+・Playerのストリーミング状況表示を隠す設定を追加
+・動画の検索結果を1ページに100件表示されるように変更
+・動画検索のインターフェースを調整
+・フォントサイズによって「設定＞DLリスト・ライブラリ」の表示が崩れるバグを修正
+・ダウンロードリストの最大件数の設定を追加
+
 2021-10-14 v4.1.2
 ・検索画面のページ送りのバグ修正
 ・検索画面でコメントが0件の動画にnullと表示されるバグを修正
@@ -204,9 +211,16 @@
     </dmg>
 
     <exe>
-        <version>4.1.2</version>
-        <url>https://github.com/nndd-reboot/NNDD/releases/download/v4.1.2/NNDD_v4_1_2.exe</url>
+        <version>4.2.0</version>
+        <url>https://github.com/nndd-reboot/NNDD/releases/download/v4.2.0/NNDD_v4_2_0.exe</url>
         <description><![CDATA[
+2021-11-02 v4.2.0
+・Playerのストリーミング状況表示を隠す設定を追加
+・動画の検索結果を1ページに100件表示されるように変更
+・動画検索のインターフェースを調整
+・フォントサイズによって「設定＞DLリスト・ライブラリ」の表示が崩れるバグを修正
+・ダウンロードリストの最大件数の設定を追加
+
 2021-10-14 v4.1.2
 ・検索画面のページ送りのバグ修正
 ・検索画面でコメントが0件の動画にnullと表示されるバグを修正
