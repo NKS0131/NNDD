@@ -5144,11 +5144,7 @@ private function searchNicoButtonClicked(pageCount: int = 1): void {
                         button_SearchNico.label = "検索";
 
                         var analyzer: SearchResultAnalyzer = nnddSearchListRenewer.result;
-                        var pageCount: int = analyzer.totalCount / 32;
-
-                        if (analyzer.totalCount % 32 != 0) {
-                            pageCount++;
-                        }
+                        var pageCount: int = Math.ceil(analyzer.totalCount / 100);
 
                         searchProvider = nnddSearchListRenewer.createSearchList();
 

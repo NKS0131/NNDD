@@ -158,7 +158,7 @@ package org.mineap.nndd {
         public function createSearchList(): ArrayCollection {
             var arrayCollection: ArrayCollection = new ArrayCollection();
 
-            var index: int = 0;
+            var index: int = (this._page - 1) * 100;
 
             for each(var searchItem: SearchResultItem in this._result.itemList) {
 
@@ -183,7 +183,7 @@ package org.mineap.nndd {
                                           searchItem.lastResBody;
 
                 arrayCollection.addItem({
-                                            dataGridColumn_ranking: index + 32 * (this._page - 1),
+                                            dataGridColumn_ranking: index,
                                             dataGridColumn_preview: searchItem.thumbImgUrl,
                                             dataGridColumn_videoName: searchItem.title + "\n    再生時間 " +
                                                                       searchItem.videoLength + "\n    投稿日時 " +
