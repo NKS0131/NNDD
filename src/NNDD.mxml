@@ -1766,13 +1766,13 @@
             <mx:ApplicationControlBar right="10" left="10" top="0" height="33"
                                       creationComplete="applicationcontrolbar1_creationCompleteHandler(event)">
                 <mx:Label text="[順序]:"/>
-                <mx:ComboBox width="120" id="comboBox_sortType" dataProvider="{searchSortListProvider}" rowCount="10"
+                <mx:ComboBox width="140" id="comboBox_sortType" dataProvider="{searchSortListProvider}" rowCount="10"
                              change="nicoSearchComboboxClosed(event)"></mx:ComboBox>
                 <mx:Label text="[種別]:"/>
-                <mx:ComboBox dataProvider="{serchTypeProvider}" id="combobox_serchType" width="120"
+                <mx:ComboBox dataProvider="{serchTypeProvider}" id="combobox_serchType" width="105"
                              change="nicoSearchComboboxClosed(event)"></mx:ComboBox>
                 <mx:Label text="[単語]:"/>
-                <mx:ComboBox id="combobox_NicoSearch" width="150" height="100%"
+                <mx:ComboBox id="combobox_NicoSearch" width="300" height="100%"
                              dataProvider="{searchHistoryProvider}" editable="true"
                              enter="searchNicoButtonClicked()" fontWeight="normal"></mx:ComboBox>
                 <mx:Button label="検索" id="button_SearchNico" click="searchNicoButtonClicked()" width="80"/>
