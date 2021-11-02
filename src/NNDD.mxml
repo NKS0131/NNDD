@@ -2621,6 +2621,15 @@
                                 <mx:Label text="回"/>
                             </s:HGroup>
 
+                            <s:HGroup verticalAlign="middle">
+                                <mx:Label text="ダウンロードリスト最大件数"/>
+                                <s:NumericStepper maximum="10000" minimum="100" stepSize="1" value="100"
+                                                  id="numStepper_dlListMaxCount"
+                                                  change="numStepper_dlListMaxCountChanged(event)"
+                                                  toolTip="ダウンロードリストに登録できる最大件数を指定します。"/>
+                                <mx:Label text="件"/>
+                            </s:HGroup>
+
                         </s:VGroup>
 
 

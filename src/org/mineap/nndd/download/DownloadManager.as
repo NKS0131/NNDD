@@ -118,18 +118,6 @@ package org.mineap.nndd.download {
             this.rankingProvider = rankingProvider;
             this.logManager = logManager;
 
-            var maxDlListCountStr: String = ConfigManager.getInstance().getItem("dlListMaxCount");
-            if (maxDlListCountStr != null) {
-                var temp: int = int(maxDlListCountStr);
-                if (temp >= 100 && temp <= 10000) {
-                    this._maxDlListCount = temp;
-                }
-            } else {
-                ConfigManager.getInstance().setItem("dlListMaxCount", DEFAULT_MAX_DLLIST_COUNT);
-                ConfigManager.getInstance().save();
-            }
-
-
             this.loadDownloadList();
         }
 
@@ -153,7 +141,7 @@ package org.mineap.nndd.download {
          */
         public function add(video: NNDDVideo, isStart: Boolean): Boolean {
 
-            if (downloadProvider.length > this.maxDlListCount) {
+            if (downloadProvider.length >= this.maxDlListCount) {
                 return false;
             }
 
@@ -1460,11 +1448,10 @@ package org.mineap.nndd.download {
             return this._retryMaxCount;
         }
 
-        /**
-         *
-         * @return
-         *
-         */
+        public function set maxDlListCount(value: int): void {
+            this._maxDlListCount = value;
+        }
+
         public function get maxDlListCount(): int {
             return this._maxDlListCount;
         }

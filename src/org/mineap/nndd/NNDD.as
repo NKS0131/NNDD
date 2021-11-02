@@ -259,6 +259,8 @@ private var isOpenPlayerOnBoot: Boolean = false;
 
 private var downloadRetryMaxCount: int = 2;
 
+private var dlListMaxCount: int = 100;
+
 private var useOldTypeCommentGet: Boolean = true;
 
 private var useAppDirSystemFile: Boolean = false;
@@ -2344,6 +2346,14 @@ private function readStore(isLogout: Boolean = false): void {
             this.downloadRetryMaxCount = 2;
         }
 
+        errorName = "dlListMaxCount";
+        confValue = ConfigManager.getInstance().getItem("dlListMaxCount");
+        if (confValue != null) {
+            this.dlListMaxCount = int(confValue);
+        } else {
+            this.dlListMaxCount = 100;
+        }
+
         errorName = "myListRenewOnBootTime";
         confValue = ConfigManager.getInstance().getItem("myListRenewOnBootTime");
         if (confValue != null) {
@@ -2518,6 +2528,7 @@ private function onFirstTimeLoginSuccess(event: HTTPStatusEvent): void {
     downloadManager.isContactTheUser = isEnableEcoCheck;
     downloadManager.isSkipEconomy = isSkipEconomy;
     downloadManager.retryMaxCount = this.downloadRetryMaxCount;
+    downloadManager.maxDlListCount = this.dlListMaxCount;
     scheduleManager = new ScheduleManager(logManager, downloadManager);
     if (this.label_nextDownloadTime !== null) {
         this.label_nextDownloadTime.text = scheduleManager.scheduleString;
@@ -2782,7 +2793,7 @@ private function tabChanged(): void {
             dataGrid_downloadList.invalidateList();
 //			dataGrid_downloadList.validateNow();
 
-            if (downloadManager.listLength > downloadManager.maxDlListCount) {
+            if (downloadManager.listLength >= downloadManager.maxDlListCount) {
                 Alert.show(Message.M_DOWNLOAD_LIST_COUNT_OVER_DELETE_PRE + downloadManager.maxDlListCount +
                            Message.M_DOWNLOAD_LIST_COUNT_OVER_DELETE_SUF,
                            Message.M_MESSAGE,
@@ -3169,6 +3180,7 @@ private function libraryConfigCanvasCreationComplete(event: FlexEvent): void {
     numericStepper_saveCommentMaxCount.value = this.saveCommentMaxCount;
     numericStepper_saveCommentMaxCount.enabled = this.isAppendComment;
     numStepper_downloadRetryMaxCount.value = this.downloadRetryMaxCount;
+    numStepper_dlListMaxCount.value = this.dlListMaxCount;
     checkBox_useNewCommentGet.selected = !this.useOldTypeCommentGet;
     checkbox_ecoDLSkip.selected = this.isSkipEconomy;
 }
@@ -4811,6 +4823,10 @@ private function saveStore(): void {
         ConfigManager.getInstance().removeItem("downloadRetryMaxCount");
         ConfigManager.getInstance().setItem("downloadRetryMaxCount", this.downloadRetryMaxCount);
 
+        /* ダウンロードリストの最大件数 */
+        ConfigManager.getInstance().removeItem("dlListMaxCount");
+        ConfigManager.getInstance().setItem("dlListMaxCount", this.dlListMaxCount);
+
         /* コメント取得方式 */
         ConfigManager.getInstance().removeItem("useOldTypeCommentGet");
         ConfigManager.getInstance().setItem("useOldTypeCommentGet", this.useOldTypeCommentGet);
@@ -6441,6 +6457,11 @@ private function numStepperDelayOfMylistChanged(event: Event): void {
 private function numStepper_downloadRetryMaxCountChanged(event: Event): void {
     this.downloadRetryMaxCount = numStepper_downloadRetryMaxCount.value;
     this.downloadManager.retryMaxCount = this.downloadRetryMaxCount;
+}
+
+private function numStepper_dlListMaxCountChanged(event: Event): void {
+    this.dlListMaxCount = numStepper_dlListMaxCount.value
+    this.downloadManager.maxDlListCount = this.dlListMaxCount;
 }
 
 
