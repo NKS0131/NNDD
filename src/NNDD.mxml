@@ -2578,75 +2578,79 @@
                 <mx:Canvas label="DLリスト・ライブラリ" width="100%" height="100%" id="canvas_library_config"
                            creationComplete="libraryConfigCanvasCreationComplete(event)">
 
-                    <s:HGroup top="0" left="10" right="10">
-                        <mx:Label text="ダウンロードリスト" fontWeight="bold"/>
-                        <mx:HRule width="100%" height="20"/>
-                    </s:HGroup>
+                    <s:VGroup paddingLeft="10" paddingRight="10" width="100%">
 
-                    <s:VGroup left="30" right="10" top="30">
-                        <mx:CheckBox label="自動的にダウンロードを開始する" selected="true"
-                                     id="checkbox_autoDL" click="checkBoxAutoDLChanged(event)"
-                                     toolTip="ダウンロードリストに項目が追加されると自動的にダウンロードを開始します。"/>
-                        <mx:CheckBox label="エコノミーモードのときダウンロードするか確認する"
-                                     selected="true" id="checkbox_ecoDL" click="checkBoxEcoCheckChanged(event)"
-                                     toolTip="ダウンロードしようとした動画がエコノミーモードのとき、ダイアログを表示して確認を求めます。"/>
-                        <s:HGroup>
-                            <mx:CheckBox id="checkbox_ecoDLSkip" label="エコノミーモードのときダウンロードをスキップする"
-                                         click="checkBoxEcoSkipChanged(event)"
-                                         enabled="{!checkbox_ecoDL.selected}" paddingLeft="20"
-                                         selected="false"
-                                         toolTip="ダウンロードしようとした動画がエコノミーモードのとき、その動画のDLをスキップして次の動画をDLします。"/>
-                        </s:HGroup>
-                        <s:HGroup>
-                            <mx:CheckBox id="checkBox_isAlwaysEconomyMode"
-                                         label="常にエコノミーモードでダウンロードする"
-                                         click="checkBoxAlwaysEcoChanged(event)"
-                                         enabled="{!checkbox_ecoDL.selected}" paddingLeft="20"
-                                         toolTip="常にエコノミーモードでダウンロードします。ストリーミング再生をエコノミーモードで行うかどうかはPlayerのInfo画面で設定できます。"/>
+                        <s:HGroup width="100%">
+                            <mx:Label text="ダウンロードリスト" fontWeight="bold"/>
+                            <mx:HRule width="100%" height="20"/>
                         </s:HGroup>
 
-                        <mx:CheckBox id="checkBox_useNewCommentGet"
-                                     label="新しいコメントのダウンロード方式を使う" click="checkBoxUseNewCommentGet(event)"
-                                     selected="true"
-                                     toolTip="2011/2/3から有効な、新しいコメントのダウンロード方式を使います。再生時間が10分より長い動画で、1000件以上のコメントが取得できるようになります。"/>
+                        <s:VGroup paddingLeft="20" paddingBottom="10" width="100%">
+                            <mx:CheckBox label="自動的にダウンロードを開始する" selected="true"
+                                         id="checkbox_autoDL" click="checkBoxAutoDLChanged(event)"
+                                         toolTip="ダウンロードリストに項目が追加されると自動的にダウンロードを開始します。"/>
+                            <mx:CheckBox label="エコノミーモードのときダウンロードするか確認する"
+                                         selected="true" id="checkbox_ecoDL" click="checkBoxEcoCheckChanged(event)"
+                                         toolTip="ダウンロードしようとした動画がエコノミーモードのとき、ダイアログを表示して確認を求めます。"/>
+                            <s:HGroup>
+                                <mx:CheckBox id="checkbox_ecoDLSkip" label="エコノミーモードのときダウンロードをスキップする"
+                                             click="checkBoxEcoSkipChanged(event)"
+                                             enabled="{!checkbox_ecoDL.selected}" paddingLeft="20"
+                                             selected="false"
+                                             toolTip="ダウンロードしようとした動画がエコノミーモードのとき、その動画のDLをスキップして次の動画をDLします。"/>
+                            </s:HGroup>
+                            <s:HGroup>
+                                <mx:CheckBox id="checkBox_isAlwaysEconomyMode"
+                                             label="常にエコノミーモードでダウンロードする"
+                                             click="checkBoxAlwaysEcoChanged(event)"
+                                             enabled="{!checkbox_ecoDL.selected}" paddingLeft="20"
+                                             toolTip="常にエコノミーモードでダウンロードします。ストリーミング再生をエコノミーモードで行うかどうかはPlayerのInfo画面で設定できます。"/>
+                            </s:HGroup>
 
-                        <s:HGroup verticalAlign="middle">
-                            <mx:Label text="ダウンロード失敗時の最大リトライ回数"/>
-                            <s:NumericStepper maximum="5" minimum="0" stepSize="1" value="2"
-                                              id="numStepper_downloadRetryMaxCount"
-                                              change="numStepper_downloadRetryMaxCountChanged(event)"
-                                              toolTip="ダウンロードに失敗した場合の最大リトライ回数を指定します。あまり大きい数字にすると、ニコニコ動画からアクセス制限を受ける場合があります。"/>
-                            <mx:Label text="回"/>
+                            <mx:CheckBox id="checkBox_useNewCommentGet"
+                                         label="新しいコメントのダウンロード方式を使う" click="checkBoxUseNewCommentGet(event)"
+                                         selected="true"
+                                         toolTip="2011/2/3から有効な、新しいコメントのダウンロード方式を使います。再生時間が10分より長い動画で、1000件以上のコメントが取得できるようになります。"/>
+
+                            <s:HGroup verticalAlign="middle">
+                                <mx:Label text="ダウンロード失敗時の最大リトライ回数"/>
+                                <s:NumericStepper maximum="5" minimum="0" stepSize="1" value="2"
+                                                  id="numStepper_downloadRetryMaxCount"
+                                                  change="numStepper_downloadRetryMaxCountChanged(event)"
+                                                  toolTip="ダウンロードに失敗した場合の最大リトライ回数を指定します。あまり大きい数字にすると、ニコニコ動画からアクセス制限を受ける場合があります。"/>
+                                <mx:Label text="回"/>
+                            </s:HGroup>
+
+                        </s:VGroup>
+
+
+                        <s:HGroup width="100%">
+                            <mx:Label fontWeight="bold" text="ライブラリ"/>
+                            <mx:HRule width="100%" height="18"/>
                         </s:HGroup>
 
-                    </s:VGroup>
+                        <s:VGroup paddingLeft="20" paddingBottom="10" width="100%">
+                            <mx:CheckBox label="ライブラリを有効にする（DL済かどうか、再生回数の管理は行いますが、ライブラリタブでライブラリを無効にします。）"
+                                         selected="true" id="checkBox_enableLibrary"
+                                         click="checkBoxEnableLibraryChanged(event)"
+                                         toolTip="ライブラリタブではタグの管理や保存されている項目についての情報表示に多少時間がかかります。ライブラリタブから保存済み動画を確認する必要がない場合はチェックを外すとライブラリタブ表示時の動作が軽くなる事があります。"/>
 
+                            <mx:CheckBox label="コメント更新時にローカルに保存済みのコメントに追記(※Playerと設定を共有)"
+                                         id="checkBox_isAppendComment" change="checkBoxAppendCommentChanged(event)"
+                                         toolTip="コメントを更新する際に、ローカルのコメントに新しいコメントを追記します。ローカルのコメントファイルが大きくなりすぎるとNNDDの動作に支障をきたす可能性があるので、その場合はチェックを外すか、保存するコメントの最大数を少なくします。"/>
 
-                    <s:HGroup left="10" top="180" right="10">
-                        <mx:Label fontWeight="bold" text="ライブラリ"/>
-                        <mx:HRule width="100%" height="18"/>
-                    </s:HGroup>
+                            <s:HGroup verticalAlign="middle">
+                                <mx:Label paddingLeft="20" text="保存するコメントの最大数："/>
+                                <mx:NumericStepper width="92" value="10000" maximum="1000000" stepSize="100"
+                                                   id="numericStepper_saveCommentMaxCount"
+                                                   enabled="{checkBox_isAppendComment.selected}"
+                                                   change="numericStepperSaveCommentMaxCountChanged(event)"
+                                                   toolTip="１動画当たりにローカルに保存するコメントの最大数を指定します。数が多すぎるとメモリが足りなくなったり、動作が不安定になる事があります。"
+                                                   minimum="1000"/>
+                                <mx:Label text="件/動画"/>
+                            </s:HGroup>
+                        </s:VGroup>
 
-                    <s:VGroup left="30" right="10" top="210">
-                        <mx:CheckBox label="ライブラリを有効にする（DL済かどうか、再生回数の管理は行いますが、ライブラリタブでライブラリを無効にします。）"
-                                     selected="true" id="checkBox_enableLibrary"
-                                     click="checkBoxEnableLibraryChanged(event)"
-                                     toolTip="ライブラリタブではタグの管理や保存されている項目についての情報表示に多少時間がかかります。ライブラリタブから保存済み動画を確認する必要がない場合はチェックを外すとライブラリタブ表示時の動作が軽くなる事があります。"/>
-
-                        <mx:CheckBox label="コメント更新時にローカルに保存済みのコメントに追記(※Playerと設定を共有)"
-                                     id="checkBox_isAppendComment" change="checkBoxAppendCommentChanged(event)"
-                                     toolTip="コメントを更新する際に、ローカルのコメントに新しいコメントを追記します。ローカルのコメントファイルが大きくなりすぎるとNNDDの動作に支障をきたす可能性があるので、その場合はチェックを外すか、保存するコメントの最大数を少なくします。"/>
-
-                        <s:HGroup verticalAlign="middle">
-                            <mx:Label paddingLeft="20" text="保存するコメントの最大数："/>
-                            <mx:NumericStepper width="92" value="10000" maximum="1000000" stepSize="100"
-                                               id="numericStepper_saveCommentMaxCount"
-                                               enabled="{checkBox_isAppendComment.selected}"
-                                               change="numericStepperSaveCommentMaxCountChanged(event)"
-                                               toolTip="１動画当たりにローカルに保存するコメントの最大数を指定します。数が多すぎるとメモリが足りなくなったり、動作が不安定になる事があります。"
-                                               minimum="1000"/>
-                            <mx:Label text="件/動画"/>
-                        </s:HGroup>
                     </s:VGroup>
 
                 </mx:Canvas>
