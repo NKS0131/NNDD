@@ -3,6 +3,10 @@ on:
   push:
     branches:
       - master
+    paths:
+      - libs/**
+      - src/**
+      - nicovideo4as
 jobs:
   build-air:
     runs-on: ubuntu-latest
