@@ -274,7 +274,7 @@ package org.mineap.nndd.download {
                                                            col_preview: downloadProvider[i].col_preview,
                                                            col_videoName: downloadProvider[i].col_videoName,
                                                            col_videoUrl: downloadProvider[i].col_videoUrl,
-                                                           col_status: timerCount + "秒後にDL開始" + retry,
+                                                           col_status: timerCount + "秒後にダウンロード開始" + retry,
                                                            col_id: downloadProvider[i].col_id,
                                                            col_downloadedPath: downloadProvider[i].col_downloadedPath,
                                                            col_statusType: DownloadStatusType.NOT_START
@@ -286,7 +286,7 @@ package org.mineap.nndd.download {
                                                                col_preview: downloadProvider[i].col_preview,
                                                                col_videoName: downloadProvider[index].col_videoName,
                                                                col_videoUrl: downloadProvider[index].col_videoUrl,
-                                                               col_status: timerCount + "秒後にDL開始" + retry,
+                                                               col_status: timerCount + "秒後にダウンロード開始" + retry,
                                                                col_id: downloadProvider[index].col_id,
                                                                col_downloadedPath: downloadProvider[index].col_downloadedPath,
                                                                col_statusType: DownloadStatusType.NOT_START
@@ -927,43 +927,51 @@ package org.mineap.nndd.download {
          *
          */
         public function downloadProgressHandler(event: ProgressEvent): void {
-            var date: Date = new Date();
-            var diff: Number = date.time - lastStatusUpdateTime.time;
-            var lastByteLoaded: Number = this.loadedBytes;
-            if (diff > 100) {
-                if (event.type == NNDDDownloader.VIDEO_DOWNLOAD_PROGRESS) {
+            if (event.type == NNDDDownloader.VIDEO_DOWNLOAD_PROGRESS) {
+                var now: Date = new Date();
+                var elapsedMilliSec: Number = now.time - lastStatusUpdateTime.time;
 
-                    this.lastStatusUpdateTime = date;
-                    this.loadedBytes = event.bytesLoaded;
+                if (elapsedMilliSec > 100) {
+                    var decimalPlace1: NumberFormatter = new NumberFormatter();
+                    decimalPlace1.precision = 1;
+                    var decimalPlace2: NumberFormatter = new NumberFormatter();
+                    decimalPlace2.precision = 2;
 
-                    var loadedValue: Number = new Number(event.bytesLoaded / 1048576);
-                    var totalValue: Number = new Number(event.bytesTotal / 1048576);
-                    var formatter: NumberFormatter = new NumberFormatter();
-                    formatter.precision = 1;
+                    var size: String = decimalPlace1.format(event.bytesLoaded / 1048576) + "/" + decimalPlace1.format(event.bytesTotal / 1048576) + "MB";
+                    var percentage: String = int(event.bytesLoaded * 100 / event.bytesTotal) + "%";
+                    var speed: String = "";
+                    var remain: String = "";
 
-                    var formatter2: NumberFormatter = new NumberFormatter();
-                    formatter2.precision = 2;
+                    var loadedBytesThisEvent: Number = event.bytesLoaded - this.loadedBytes;
 
-                    // 秒に直す
-                    var sec: Number = diff / 1000;
-                    // 今回DLしたバイト数
-                    var loadBytes: Number = event.bytesLoaded - lastByteLoaded;
+                    if (loadedBytesThisEvent / elapsedMilliSec < 1024) {
+                        speed = decimalPlace1.format(loadedBytesThisEvent * 1000 / (elapsedMilliSec * 1024)) + "KB/s";
+                    }
+                    else {
+                        speed = decimalPlace2.format(loadedBytesThisEvent * 1000 / (elapsedMilliSec * 1048576)) + "MB/s";
+                    }
 
-                    var value: Number = loadBytes / sec;
+                    var remainMinutes: Number = Math.round((event.bytesTotal - event.bytesLoaded) * elapsedMilliSec / (loadedBytesThisEvent * 60000));
 
-                    // MB/秒に変換
-                    value = value / 1048576;
-                    trace(value);
+                    if (event.bytesLoaded * elapsedMilliSec / loadedBytesThisEvent > 20000) {
+                        if (remainMinutes == 0) {
+                            remain = "あとちょっと";
+                        }
+                        else {
+                            remain = "あと" + remainMinutes + "分くらい";
+                        }
+                    }
+
+                    var status: String =
+                        "動画をダウンロード中 " + remain + "\n"
+                        + percentage + " (" + speed + ")\n"
+                        + size;
 
                     var index: int = searchQueueIndexByQueueId(queueId);
-                    setStatus(
-                        "動画をDL中\n" + new int((event.bytesLoaded / event.bytesTotal) * 100) + "% (" +
-                        formatter2.format(value) + " MB/s)\n" + formatter.format(loadedValue) + "MB/" +
-                        formatter.format(totalValue) + "MB",
-                        DownloadStatusType.DOWNLOADEING,
-                        queueVideoName,
-                        index
-                    );
+
+                    setStatus(status, DownloadStatusType.DOWNLOADEING, queueVideoName, index);
+                    this.lastStatusUpdateTime = now;
+                    this.loadedBytes = event.bytesLoaded;
                 }
             }
         }
