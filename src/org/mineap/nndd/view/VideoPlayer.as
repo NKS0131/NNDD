@@ -1149,6 +1149,7 @@ public function changeFull(): void {
  *
  */
 public function setFull(): void {
+    this.videoPlayer.alwaysInFront = false;
     this.videoPlayer.button_ChangeFullScreen.label = Message.L_NORMAL;
     this.videoPlayer.showUnderController(false, false);
     this.videoPlayer.showTagArea(false, false);
@@ -1177,6 +1178,8 @@ public function resetFull(): void {
     } else {
         showTagArea(true, false);
     }
+
+    this.videoPlayer.alwaysInFront = this.videoPlayer.isAlwaysFront;
 }
 
 public function showAskToUserOnJump(open: Function, cancel: Function, videoId: String): void {
