@@ -716,6 +716,16 @@
                                              change="checkBoxSmoothingOnlyNotPixelIdenticalDimensionsChanged(event)"
                                              selected="true"/>
 
+                                <s:HGroup verticalAlign="middle">
+                                    <mx:Label text="キーボードでシークする秒数："
+                                              toolTip="キーボードの左右ボタンを押した時に動画を進める、または戻す秒数です。"/>
+                                    <mx:NumericStepper minimum="1" maximum="30" stepSize="1"
+                                                       value="10" id="secondsToSeekOnKeyboardStepper"
+                                                       change="secondsToSeekOnKeyboardStepperChanged(event)"
+                                                       toolTip="キーボードの左右ボタンを押した時に動画を進める、または戻す秒数です。"/>
+                                    <mx:Label text="秒"/>
+                                </s:HGroup>
+
                                 <s:HGroup width="100%" verticalAlign="middle">
                                     <mx:Label text="再生品質"/>
                                     <mx:HRule width="100%"/>

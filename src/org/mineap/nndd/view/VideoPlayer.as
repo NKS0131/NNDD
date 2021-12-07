@@ -699,7 +699,7 @@ private function keyListener(event: KeyboardEvent): void {
             seekValue = 0;
         });
         seekTimer.start();
-        this.seekValue -= 10;
+        this.seekValue -= this.videoInfoView.secondsToSeekOnKeyboard;
     } else if (event.keyCode == Keyboard.RIGHT) {
         //右キー。進む。
         if (event.target as UITextField) {
@@ -721,7 +721,7 @@ private function keyListener(event: KeyboardEvent): void {
             seekValue = 0;
         });
         seekTimer.start();
-        this.seekValue += 10;
+        this.seekValue += this.videoInfoView.secondsToSeekOnKeyboard;
     } else if (event.keyCode == Keyboard.UP) {
         this.playerController.setVolume(this.videoController.slider_volume.value + 0.05);
     } else if (event.keyCode == Keyboard.DOWN) {

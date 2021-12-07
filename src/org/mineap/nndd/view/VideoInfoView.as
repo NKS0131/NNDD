@@ -94,6 +94,7 @@ public var is184: Boolean = true;
 public var useDarkColor: Boolean = false;
 public var ownerCommentTextSize: int = 70;
 public var isIgnoreJumpOnPlayList: Boolean = true;
+public var secondsToSeekOnKeyboard: int = 10;
 
 public static const RESIZE_TYPE_NICO: int = 1;
 public static const RESIZE_TYPE_VIDEO: int = 2;
@@ -282,6 +283,10 @@ public function checkBoxSmoothingOnlyNotPixelIdenticalDimensionsChanged(event: E
     if (this.playerController != null) {
         this.playerController.setVideoSmoothing(this.isSmoothing);
     }
+}
+
+public function secondsToSeekOnKeyboardStepperChanged(event: Event): void {
+    this.secondsToSeekOnKeyboard = this.secondsToSeekOnKeyboardStepper.value;
 }
 
 private function checkBoxPlayerAlwaysFrontChanged(event: Event): void {
@@ -601,7 +606,7 @@ private function keyListener(event: KeyboardEvent): void {
             seekValue = 0;
         });
         seekTimer.start();
-        this.seekValue -= 10;
+        this.seekValue -= this.secondsToSeekOnKeyboard;
     } else if (event.keyCode == Keyboard.RIGHT) {
         //右
         if (seekTimer != null) {
@@ -620,7 +625,7 @@ private function keyListener(event: KeyboardEvent): void {
             seekValue = 0;
         });
         seekTimer.start();
-        this.seekValue += 10;
+        this.seekValue += this.secondsToSeekOnKeyboard;
     } else if (event.keyCode == Keyboard.UP) {
         this.playerController.setVolume(this.videoPlayer.videoController.slider_volume.value + 0.05);
     } else if (event.keyCode == Keyboard.DOWN) {
@@ -837,9 +842,8 @@ private function configCanvas1CreationCompleteHandler(event: FlexEvent): void {
     }
 
     checkBox_isAlwaysEconomyForStreaming.selected = isAlwaysEconomyForStreaming;
-
     slider_playerQuality.value = playerQuality;
-
+    secondsToSeekOnKeyboardStepper.value = secondsToSeekOnKeyboard;
 }
 
 private function configCanvas2CreationCompleteHandler(event: FlexEvent): void {
@@ -1209,6 +1213,11 @@ private function readStore(): void {
             this.isIgnoreJumpOnPlayList = ConfUtil.parseBoolean(confValue);
         }
 
+        confValue = ConfigManager.getInstance().getItem("secondsToSeekOnKeyboard");
+        if (confValue != null) {
+            secondsToSeekOnKeyboard = Number(confValue);
+        }
+
     } catch (error: Error) {
         trace(error.getStackTrace());
         Alert.show(Message.M_CONF_FILE_IS_BROKEN, Message.M_ERROR);
@@ -1378,6 +1387,9 @@ public function saveStore(): void {
 
         ConfigManager.getInstance().removeItem("ownerCommentTextSize");
         ConfigManager.getInstance().setItem("ownerCommentTextSize", ownerCommentTextSize);
+
+        ConfigManager.getInstance().removeItem("secondsToSeekOnKeyboard");
+        ConfigManager.getInstance().setItem("secondsToSeekOnKeyboard", secondsToSeekOnKeyboard);
 
         ConfigManager.getInstance().save();
 
