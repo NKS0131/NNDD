@@ -939,73 +939,53 @@ private function readStore(): void {
 
         var confValue: String = null;
         confValue = ConfigManager.getInstance().getItem("isPlayListRepeat");
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             isPlayListRepeat = ConfUtil.parseBoolean(confValue);
         }
 
         confValue = ConfigManager.getInstance().getItem("isSyncComment");
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             isSyncComment = ConfUtil.parseBoolean(confValue);
         }
 
         confValue = ConfigManager.getInstance().getItem("isPlayerFollow");
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             isPlayerFollow = ConfUtil.parseBoolean(confValue);
         }
 
         confValue = ConfigManager.getInstance().getItem("isRenewCommentEachPlay");
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             isRenewCommentEachPlay = ConfUtil.parseBoolean(confValue);
         }
 
         confValue = ConfigManager.getInstance().getItem("isResizePlayerEachPlay");
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             isResizePlayerEachPlay = ConfUtil.parseBoolean(confValue);
         }
 
         confValue = ConfigManager.getInstance().getItem("isHideUnderController");
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             isHideUnderController = ConfUtil.parseBoolean(confValue);
         }
 
         confValue = ConfigManager.getInstance().getItem("commentScale");
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             commentScale = Number(confValue);
         }
 
         confValue = ConfigManager.getInstance().getItem("commentFps");
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             this.fps = Number(confValue);
             this.playerController.changeFps(this.fps);
         }
 
         confValue = ConfigManager.getInstance().getItem("isShowOnlyPermissionComment");
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             isShowOnlyPermissionComment = ConfUtil.parseBoolean(confValue);
         }
 
         confValue = ConfigManager.getInstance().getItem("showCommentCount");
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             showCommentCountPerMin = int(confValue);
         }
 
@@ -1017,123 +997,89 @@ private function readStore(): void {
         }
 
         confValue = ConfigManager.getInstance().getItem("showCommentSec");
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             showCommentSec = int(confValue);
         }
 
         confValue = ConfigManager.getInstance().getItem("isRenewOtherCommentWithCommentEachPlay");
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             isRenewOtherCommentWithCommentEachPlay = ConfUtil.parseBoolean(confValue);
         }
 
         confValue = ConfigManager.getInstance().getItem("isAntiAlias");
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             isAntiAlias = ConfUtil.parseBoolean(confValue);
         }
 
         confValue = ConfigManager.getInstance().getItem("commentAlpha");
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             commentAlpha = int(confValue);
         }
 
         confValue = ConfigManager.getInstance().getItem("isEnableJump");
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             isEnableJump = ConfUtil.parseBoolean(confValue);
         }
 
         confValue = ConfigManager.getInstance().getItem("isAskToUserOnJump");
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             isAskToUserOnJump = ConfUtil.parseBoolean(confValue);
         }
 
         confValue = ConfigManager.getInstance().getItem("isInfoViewAlwaysFront");
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             isInfoViewAlwaysFront = ConfUtil.parseBoolean(confValue);
         }
 
         confValue = ConfigManager.getInstance().getItem("selectedResizeType");
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             selectedResizeType = int(confValue);
         }
 
         confValue = ConfigManager.getInstance().getItem("isCommentFontBold");
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             isCommentFontBold = ConfUtil.parseBoolean(confValue);
         }
 
         confValue = ConfigManager.getInstance().getItem("isShowAlwaysNicowariArea");
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             isShowAlwaysNicowariArea = ConfUtil.parseBoolean(confValue);
         }
 
         confValue = ConfigManager.getInstance().getItem("isHideTagArea");
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             isHideTagArea = ConfUtil.parseBoolean(confValue);
         }
 
         confValue = ConfigManager.getInstance().getItem("isHidePlaySourceStatus");
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             isHidePlaySourceStatus = ConfUtil.parseBoolean(confValue);
         }
 
         confValue = ConfigManager.getInstance().getItem("isAlwaysEconomyForStreaming");
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             isAlwaysEconomyForStreaming = ConfUtil.parseBoolean(confValue);
         }
 
         confValue = ConfigManager.getInstance().getItem("isAppendComment");
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             isAppendComment = ConfUtil.parseBoolean(confValue);
         }
 
         confValue = ConfigManager.getInstance().getItem("isHideSekaShinComment");
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             isHideSekaShinComment = ConfUtil.parseBoolean(confValue);
         }
 
         confValue = ConfigManager.getInstance().getItem("isShowHTMLOwnerComment");
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             isShowHTMLOwnerComment = ConfUtil.parseBoolean(confValue);
         }
 
         //x,y,w,h
         confValue = ConfigManager.getInstance().getItem("controllerWindowPosition_x");
         var controllerPosition_x: Number = 0;
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             controllerPosition_x = Number(confValue);
             this.addEventListener(FlexEvent.CREATION_COMPLETE, function (): void {
                 nativeWindow.x = lastRect.x = controllerPosition_x;
@@ -1142,9 +1088,7 @@ private function readStore(): void {
 
         confValue = ConfigManager.getInstance().getItem("controllerWindowPosition_y");
         var controllerPosition_y: Number = 0;
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             controllerPosition_y = Number(confValue);
             this.addEventListener(FlexEvent.CREATION_COMPLETE, function (): void {
                 nativeWindow.y = lastRect.y = controllerPosition_y;
@@ -1153,9 +1097,7 @@ private function readStore(): void {
 
         confValue = ConfigManager.getInstance().getItem("controllerWindowPosition_w");
         var controllerPosition_w: Number = 380;
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             controllerPosition_w = Number(confValue);
             this.addEventListener(FlexEvent.CREATION_COMPLETE, function (): void {
                 nativeWindow.width = lastRect.width = controllerPosition_w;
@@ -1164,9 +1106,7 @@ private function readStore(): void {
 
         confValue = ConfigManager.getInstance().getItem("controllerWindowPosition_h");
         var controllerPosition_h: Number = 520;
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             controllerPosition_h = Number(confValue);
             this.addEventListener(FlexEvent.CREATION_COMPLETE, function (): void {
                 nativeWindow.height = lastRect.height = controllerPosition_h;
@@ -1175,7 +1115,6 @@ private function readStore(): void {
 
         confValue = ConfigManager.getInstance().getItem("isEnableWideMode");
         if (confValue == null) {
-            //何もしない
             isEnableWideMode = true;
         } else {
             isEnableWideMode = ConfUtil.parseBoolean(confValue);
@@ -1191,23 +1130,17 @@ private function readStore(): void {
 
 
         confValue = ConfigManager.getInstance().getItem("relationSortIndex");
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             relationSortIndex = int(confValue);
         }
 
         confValue = ConfigManager.getInstance().getItem("relationOrderIndex");
-        if (confValue == null) {
-            //何もしない
-        } else {
+        if (confValue != null) {
             relationOrderIndex = int(confValue);
         }
 
         confValue = ConfigManager.getInstance().getItem("isNgUpEnable");
-        if (confValue == null) {
-            // 何もしない
-        } else {
+        if (confValue != null) {
             isNgUpEnable = ConfUtil.parseBoolean(confValue);
         }
 
