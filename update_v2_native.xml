@@ -225,7 +225,7 @@
 
     <exe>
         <version>4.4.1</version>
-        <url>https://github.com/nndd-reboot/NNDD/releases/download/v4.4.0/NNDD_v4_4_1.exe</url>
+        <url>https://github.com/nndd-reboot/NNDD/releases/download/v4.4.1/NNDD_v4_4_1.exe</url>
         <description><![CDATA[
 2021-12-12 v4.4.1
 ・PlayerのInfoViewをダイアログで表示する設定を追加
