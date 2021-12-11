@@ -260,7 +260,6 @@ package org.mineap.nndd.player {
             this.playListManager = PlayListManager.instance;
             this.videoPlayer = new VideoPlayer();
             this.videoInfoView = new VideoInfoView();
-            this.videoInfoView.type = NativeWindowType.UTILITY;
             ConfigManager.getInstance().reload();
             this.videoPlayer.init(this, videoInfoView, logManager);
             this.videoInfoView.init(this, videoPlayer, logManager);
