@@ -69,6 +69,7 @@ public var commentAlpha: int = 100;
 public var isEnableJump: Boolean = true;
 public var isAskToUserOnJump: Boolean = true;
 public var isInfoViewAlwaysFront: Boolean = false;
+public var isInfoViewDisplayAsDialog: Boolean = false;
 public var isCommentFontBold: Boolean = true;
 public var isShowAlwaysNicowariArea: Boolean = false;
 public var selectedResizeType: int = RESIZE_TYPE_NICO;
@@ -190,6 +191,8 @@ public function init(playerController: PlayerController, videoPlayer: VideoPlaye
     });
 
     readStore();
+
+    this.type = this.isInfoViewDisplayAsDialog ? NativeWindowType.UTILITY : NativeWindowType.NORMAL;
 }
 
 public function resetInfo(): void {
@@ -297,6 +300,10 @@ private function checkBoxPlayerAlwaysFrontChanged(event: Event): void {
 private function checkBoxInfoViewAlwaysFrontChanged(event: Event): void {
     this.isInfoViewAlwaysFront = (event.currentTarget as CheckBox).selected;
     this.alwaysInFront = (event.currentTarget as CheckBox).selected;
+}
+
+private function checkboxInfoViewDisplayAsDialogChanged(event: Event): void {
+    this.isInfoViewDisplayAsDialog = (event.currentTarget as CheckBox).selected;
 }
 
 private function checkBoxCommentFontBoldChanged(event: Event): void {
@@ -870,6 +877,7 @@ private function configCanvas2CreationCompleteHandler(event: FlexEvent): void {
 private function configCanvas3CreationCompleteHandler(event: FlexEvent): void {
     checkbox_PlayerAlwaysFront.selected = videoPlayer.isAlwaysFront;
     checkbox_InfoViewAlwaysFront.selected = isInfoViewAlwaysFront;
+    checkbox_InfoViewDisplayAsDialog.selected = isInfoViewDisplayAsDialog;
 
     checkbox_playerFollow.selected = isPlayerFollow;
     checkBox_renewComment.selected = isRenewCommentEachPlay;
@@ -1033,6 +1041,11 @@ private function readStore(): void {
         confValue = ConfigManager.getInstance().getItem("isInfoViewAlwaysFront");
         if (confValue != null) {
             isInfoViewAlwaysFront = ConfUtil.parseBoolean(confValue);
+        }
+
+        confValue = ConfigManager.getInstance().getItem("isInfoViewDisplayAsDialog");
+        if (confValue != null) {
+            isInfoViewDisplayAsDialog = ConfUtil.parseBoolean(confValue);
         }
 
         confValue = ConfigManager.getInstance().getItem("selectedResizeType");
@@ -1303,6 +1316,9 @@ public function saveStore(): void {
 
         ConfigManager.getInstance().removeItem("isInfoViewAlwaysFront");
         ConfigManager.getInstance().setItem("isInfoViewAlwaysFront", isInfoViewAlwaysFront);
+
+        ConfigManager.getInstance().removeItem("isInfoViewDisplayAsDialog");
+        ConfigManager.getInstance().setItem("isInfoViewDisplayAsDialog", isInfoViewDisplayAsDialog);
 
         ConfigManager.getInstance().removeItem("selectedResizeType");
         ConfigManager.getInstance().setItem("selectedResizeType", selectedResizeType);

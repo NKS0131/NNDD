@@ -904,6 +904,8 @@
                                              creationComplete="configCanvas3CreationCompleteHandler(event)"/>
                                 <mx:CheckBox label="InfoViewを常に最前面に表示する" id="checkbox_InfoViewAlwaysFront"
                                              change="checkBoxInfoViewAlwaysFrontChanged(event)"/>
+                                <mx:CheckBox label="InfoViewをダイアログで表示する（Player次回表示時から有効）" id="checkbox_InfoViewDisplayAsDialog"
+                                             change="checkboxInfoViewDisplayAsDialogChanged(event)"/>
                                 <mx:CheckBox label="InfoViewをPlayerに追従させる" id="checkbox_playerFollow"
                                              change="checkboxPlayerFollowChanged(event)"/>
                                 <mx:CheckBox label="InfoViewの高さをPlayerにあわせる" id="checkbox_followInfoViewHeight"
