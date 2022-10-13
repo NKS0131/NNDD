@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <update xmlns="http://ns.riaspace.com/air/framework/update/description/1.1">
     <dmg>
-        <version>4.4.1</version>
-        <url>https://github.com/nndd-reboot/NNDD/releases/download/v4.4.1/NNDD_v4_4_1.dmg</url>
+        <version>4.4.2</version>
+        <url>https://github.com/nndd-reboot/NNDD/releases/download/v4.4.2/NNDD_v4_4_2.dmg</url>
         <description><![CDATA[
+2021-10-13 v4.4.2
+・動画アクセス時のUserAgentを更新
+
 2021-12-12 v4.4.1
 ・PlayerのInfoViewをダイアログで表示する設定を追加
 
@@ -224,9 +227,12 @@
     </dmg>
 
     <exe>
-        <version>4.4.1</version>
-        <url>https://github.com/nndd-reboot/NNDD/releases/download/v4.4.1/NNDD_v4_4_1.exe</url>
+        <version>4.4.2</version>
+        <url>https://github.com/nndd-reboot/NNDD/releases/download/v4.4.2/NNDD_v4_4_2.exe</url>
         <description><![CDATA[
+2021-10-13 v4.4.2
+・動画アクセス時のUserAgentを更新
+
 2021-12-12 v4.4.1
 ・PlayerのInfoViewをダイアログで表示する設定を追加
 
