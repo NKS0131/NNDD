@@ -13,7 +13,7 @@ jobs:
     env:
       AIR_HOME: /opt/airsdk
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: recursive
 
@@ -34,7 +34,7 @@ jobs:
           java -jar $AIR_HOME/lib/adt.jar -certificate -cn SelfSigned 2048-RSA certificate_no_password.pfx ''
           java -jar $AIR_HOME/lib/adt.jar -package -storetype pkcs12 -keystore certificate_no_password.pfx -storepass '' NNDD.air NNDD-app.xml NNDD.swf icon32.png icon128.png icon48.png icon16.png CategoryList.json
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: air
           path: src/NNDD.air
@@ -43,7 +43,7 @@ jobs:
     needs: build-air
     runs-on: windows-latest
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: air
 
@@ -57,7 +57,7 @@ jobs:
         run: |
           air/bin/adt.bat -package -target native NNDD.exe NNDD.air
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: exe
           path: NNDD.exe
@@ -66,7 +66,7 @@ jobs:
     needs: build-air
     runs-on: macos-latest
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: air
 
@@ -80,7 +80,7 @@ jobs:
         run: |
           air/bin/adt -package -target native NNDD.dmg NNDD.air
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: dmg
           path: NNDD.dmg

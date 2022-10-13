@@ -11,7 +11,7 @@ jobs:
     env:
       AIR_HOME: /opt/airsdk
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: recursive
 
@@ -33,7 +33,7 @@ jobs:
           $AIR_HOME/bin/amxmlc NNDD.mxml -compiler.include-libraries ../libs/* -warnings=false
           java -jar $AIR_HOME/lib/adt.jar -package -storetype pkcs12 -keystore ../nndd-5ch_certificate.pfx -storepass $certificate_password NNDD.air NNDD-app.xml NNDD.swf icon32.png icon128.png icon48.png icon16.png CategoryList.json
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: air
           path: src/NNDD.air
@@ -42,7 +42,7 @@ jobs:
         id: slug
         run: echo $GITHUB_REF | sed -r -e 's/.*\/([^/]+)$/\1/' -e 's/\./_/g' -e 's/^/::set-output name=text::/'
 
-      - uses: actions/upload-release-asset@v1.0.1
+      - uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -55,7 +55,7 @@ jobs:
     needs: build-air
     runs-on: windows-latest
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: air
 
@@ -69,7 +69,7 @@ jobs:
         run: |
           air/bin/adt.bat -package -target native NNDD.exe NNDD.air
 
-      - uses: actions/upload-release-asset@v1.0.1
+      - uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -82,7 +82,7 @@ jobs:
     needs: build-air
     runs-on: macos-latest
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: air
 
@@ -96,7 +96,7 @@ jobs:
         run: |
           air/bin/adt -package -target native NNDD.dmg NNDD.air
 
-      - uses: actions/upload-release-asset@v1.0.1
+      - uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
