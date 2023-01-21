@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <update xmlns="http://ns.riaspace.com/air/framework/update/description/1.1">
     <dmg>
-        <version>4.4.3</version>
-        <url>https://github.com/nndd-reboot/NNDD/releases/download/v4.4.3/NNDD_v4_4_3.dmg</url>
+        <version>4.4.4</version>
+        <url>https://github.com/nndd-reboot/NNDD/releases/download/v4.4.4/NNDD_v4_4_4.dmg</url>
         <description><![CDATA[
+2023-01-21 v4.4.4
+・動画一覧のRSSのバグに対応（ニコニコ側で修正されたらこの修正は元に戻す必要がある）
+
 2023-01-21 v4.4.3
 ・マイリスのURL変更に暫定対応
 ・ランキングのカテゴリがリリース時の最新に更新されるように構成
@@ -231,9 +234,12 @@
     </dmg>
 
     <exe>
-        <version>4.4.3</version>
-        <url>https://github.com/nndd-reboot/NNDD/releases/download/v4.4.3/NNDD_v4_4_3.exe</url>
+        <version>4.4.4</version>
+        <url>https://github.com/nndd-reboot/NNDD/releases/download/v4.4.4/NNDD_v4_4_4.exe</url>
         <description><![CDATA[
+2023-01-21 v4.4.4
+・動画一覧のRSSのバグに対応（ニコニコ側で修正されたらこの修正は元に戻す必要がある）
+
 2023-01-21 v4.4.3
 ・マイリスのURL変更に暫定対応
 ・ランキングのカテゴリがリリース時の最新に更新されるように構成
