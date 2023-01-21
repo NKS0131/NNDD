@@ -53,10 +53,8 @@ package org.mineap.nndd.util {
             }
 
             // Case: http://www.nicovideo.jp/user/[UserID]/video
-            //       http://www.nicovideo.jp/user/[UserID]
             //       https://www.nicovideo.jp/user/[UserID]/video
-            //       https://www.nicovideo.jp/user/[UserID]
-            if (matches = string.match(/^https?:\/\/www\.nicovideo\.jp\/user\/([1-9][0-9]*)(\/video)?$/)) {
+            if (matches = string.match(/^https?:\/\/www\.nicovideo\.jp\/user\/([1-9][0-9]*)\/video/)) {
                 return matches[1];
             }
 
