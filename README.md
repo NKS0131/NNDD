@@ -1,11 +1,8 @@
 # NNDD 5chメンテナンス版（NNDD-5ch）
 
 本ソフトウェアは[MineAP][]さんが作成された[NNDD][] ver2.4.3からフォークした[NNDD+DMC][] ver4.0.1からフォークしたソフトウェアです。
-NNDD+DMCに加えて下記のような機能を実装しています。
 
-* 新コメントAPIに対応
-
-本プロジェクトでリリースしたNNDD-5ch (version >= 4.1.0)を利用して発生した不具合等に関しては[このリポジトリのIssues][Issues]または5ch NNDDスレにご報告いただくようお願いします。
+本プロジェクトでリリースしたNNDD-5ch (version >= 4.1.0)を利用して発生した不具合等に関しては[このリポジトリのIssues][Issues]、5ch [NNDDスレ][5ch nndd]、またはDiscord [NNDD 5chサーバ][discord nndd]にご報告いただくようお願いします。
 **オリジナルの作者様にお問い合わせをすることのないようにお願いします。**
 
 ## 現在分かっている不具合
@@ -59,6 +56,9 @@ MITライセンスに示されるとおり, 本ソフトウェアは**無保証*
 * [NativeApplicationUpdater][] &copy; Piotr Walczyszyn (Apache License 2.0)
 * [Flashls][] &copy; [mangui][] ([Mozilla Public License 2.0][MPLv2])
 
+## 協力者募集！
+協力してもいいよ！という方はお気軽にDiscord [NNDD 5chサーバ][discord nndd]にご参加ください。
+
 [MineAP]: https://twitter.com/mineap
 [NNDD]: https://ja.osdn.net/projects/nndd/
 [NNDD+DMC]: https://github.com/SSW-SCIENTIFIC/NNDD
@@ -73,3 +73,5 @@ MITライセンスに示されるとおり, 本ソフトウェアは**無保証*
 [NNDD+DMC on Linux]: https://github.com/SSW-SCIENTIFIC/NNDD/wiki/(%E5%8F%82%E8%80%83)-Linux%E3%81%B8%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB
 [Release-Latest]: https://github.com/nndd-reboot/NNDD/releases/latest
 [Releases]: https://github.com/nndd-reboot/NNDD/releases
+[5ch nndd]: https://egg.5ch.net/test/read.cgi/software/1622748248/l50
+[discord nndd]: https://discord.gg/KhkyjwuJRh
