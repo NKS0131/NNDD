@@ -16,9 +16,6 @@ jobs:
       - uses: actions/checkout@v3
         with:
           submodules: recursive
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
 
       - name: setup
         run: |
@@ -29,11 +26,6 @@ jobs:
           mv apache-flex-sdk-4.16.1-bin $AIR_HOME
           unzip AdobeAIRSDK.zip -d $AIR_HOME
           mv osmf.swc $AIR_HOME/frameworks/libs/
-
-      - name: category list update
-        run: |
-          (cd utils/category_list_update && npm ci)
-          utils/category_list_update/node_modules/.bin/ts-node utils/category_list_update/fetch_ranking_genre_tags.ts > src/CategoryList.json
 
       - name: build
         run: |
