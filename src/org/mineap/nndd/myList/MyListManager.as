@@ -1455,12 +1455,17 @@ package org.mineap.nndd.myList {
          */
         public static function checkType(url: String): RssType {
             if (url != null) {
-                if (url.indexOf("channel/") !== -1 || url.indexOf("ch.nicovideo.jp") !== -1) {
+                if (MyListUtil.getChannelId(url) != null) {
                     return RssType.CHANNEL;
-                } else if (url.indexOf("community/") !== -1 || url.indexOf("com.nicovideo.jp") !== -1) {
+                }
+                else if (MyListUtil.getCommunityId(url) != null) {
                     return RssType.COMMUNITY;
-                } else if (url.indexOf("user/") != -1) {
+                }
+                else if (MyListUtil.getUserUploadVideoListId(url) != null) {
                     return RssType.USER_UPLOAD_VIDEO;
+                }
+                else if (MyListUtil.getMyListId(url) != null) {
+                    return RssType.MY_LIST;
                 }
             }
 
