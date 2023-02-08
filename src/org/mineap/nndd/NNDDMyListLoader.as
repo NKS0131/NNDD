@@ -387,7 +387,7 @@ package org.mineap.nndd {
             try {
                 var xml: XML = new XML((event.target as URLLoader).data);
                 var items: XMLList = xml.child("channel")[0].child("item");
-                var next: Boolean = this._uploadUserId != null ? items.length() >= this._currentPage * 30 : items.length() > 0;
+                var next: Boolean = items.length() > 0;
                 if (this._xml == null) {
                     this._xml = xml;
                 } else {
@@ -405,20 +405,18 @@ package org.mineap.nndd {
                         // community page load limit is very severe
                         wait = this._currentPage % 5 === 0 ? 10000 : 1000;
                         wait += this._currentPage > 20 ? 5000 : 0;
-                        this._currentPage++;
                         LogManager.instance.addLog(DOWNLOAD_PROCESS_INPROGRESS + ": community/" + this._communityId +
                                                    "/" + this._currentPage);
                     } else if (this._channelId != null) {
-                        this._currentPage++;
                         LogManager.instance.addLog(DOWNLOAD_PROCESS_INPROGRESS + ": channel/" + this._uploadUserId +
                                                    "/" + this._currentPage);
                     } else if (this._uploadUserId != null) {
-                        this._currentPage *= 2;
                         LogManager.instance.addLog(DOWNLOAD_PROCESS_INPROGRESS + ": user/" + this._uploadUserId + "/" +
                                                    this._currentPage);
                     }
 
                     setTimeout(this.loadRss, wait);
+                    this._currentPage++;
                     this._retryCount = 0;
                     return;
                 }
