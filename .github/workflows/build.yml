@@ -17,15 +17,36 @@ jobs:
         with:
           submodules: recursive
 
+      - uses: actions/cache@v3
+        id: apache_flex_cache
+        with:
+          path: apache-flex-sdk-4.16.1-bin.tar.gz
+          key: https://dlcdn.apache.org/flex/4.16.1/binaries/apache-flex-sdk-4.16.1-bin.tar.gz
+      - if: steps.apache_flex_cache.outputs.cache-hit != 'true'
+        run: curl https://dlcdn.apache.org/flex/4.16.1/binaries/apache-flex-sdk-4.16.1-bin.tar.gz -O
+
+      - uses: actions/cache@v3
+        id: adobe_airsdk_cache
+        with:
+          path: AdobeAIRSDK.zip
+          key: http://fpdownload.macromedia.com/air/win/download/32.0/AdobeAIRSDK.zip
+      - if: steps.adobe_airsdk_cache.outputs.cache-hit != 'true'
+        run: curl http://fpdownload.macromedia.com/air/win/download/32.0/AdobeAIRSDK.zip -O
+
+      - uses: actions/cache@v3
+        id: flex_osmf20_cache
+        with:
+          path: OSMF2_0.swc
+          key: https://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/frameworks/libs/OSMF2_0.swc?format=raw
+      - if: steps.flex_osmf20_cache.outputs.cache-hit != 'true'
+        run: curl https://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/frameworks/libs/OSMF2_0.swc?format=raw -o OSMF2_0.swc
+
       - name: setup
         run: |
-          curl https://dlcdn.apache.org/flex/4.16.1/binaries/apache-flex-sdk-4.16.1-bin.tar.gz -O
-          curl http://fpdownload.macromedia.com/air/win/download/32.0/AdobeAIRSDK.zip -O
-          curl https://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/frameworks/libs/OSMF2_0.swc?format=raw -o osmf.swc
           tar xzf apache-flex-sdk-4.16.1-bin.tar.gz
           mv apache-flex-sdk-4.16.1-bin $AIR_HOME
           unzip AdobeAIRSDK.zip -d $AIR_HOME
-          mv osmf.swc $AIR_HOME/frameworks/libs/
+          cp OSMF2_0.swc $AIR_HOME/frameworks/libs/osmf.swc
 
       - name: build
         run: |
@@ -47,10 +68,17 @@ jobs:
         with:
           name: air
 
+      - uses: actions/cache@v3
+        id: adobe_airsdk_cache
+        with:
+          path: AdobeAIRSDK.zip
+          key: http://fpdownload.macromedia.com/air/win/download/32.0/AdobeAIRSDK.zip
+      - if: steps.adobe_airsdk_cache.outputs.cache-hit != 'true'
+        run: curl http://fpdownload.macromedia.com/air/win/download/32.0/AdobeAIRSDK.zip -O
+
       - name: setup
         shell: bash
         run: |
-          curl http://fpdownload.macromedia.com/air/win/download/32.0/AdobeAIRSDK.zip -O
           unzip AdobeAIRSDK.zip -d air
 
       - name: build
@@ -70,9 +98,16 @@ jobs:
         with:
           name: air
 
+      - uses: actions/cache@v3
+        id: adobe_airsdk_cache
+        with:
+          path: AdobeAIRSDK.dmg
+          key: https://airdownload.adobe.com/air/mac/download/32.0/AdobeAIRSDK.dmg
+      - if: steps.adobe_airsdk_cache.outputs.cache-hit != 'true'
+        run: curl https://airdownload.adobe.com/air/mac/download/32.0/AdobeAIRSDK.dmg -O
+
       - name: setup
         run: |
-          curl https://airdownload.adobe.com/air/mac/download/32.0/AdobeAIRSDK.dmg -O
           hdiutil mount AdobeAIRSDK.dmg
           ditto '/Volumes/AIR SDK' air
 
