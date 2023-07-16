@@ -31,6 +31,7 @@ jobs:
         with:
           path: AdobeAIRSDK.zip
           key: http://fpdownload.macromedia.com/air/win/download/32.0/AdobeAIRSDK.zip
+          enableCrossOsArchive: true
       - if: steps.adobe_airsdk_cache.outputs.cache-hit != 'true'
         run: curl http://fpdownload.macromedia.com/air/win/download/32.0/AdobeAIRSDK.zip -O
 
@@ -91,6 +92,7 @@ jobs:
         with:
           path: AdobeAIRSDK.zip
           key: http://fpdownload.macromedia.com/air/win/download/32.0/AdobeAIRSDK.zip
+          enableCrossOsArchive: true
       - if: steps.adobe_airsdk_cache.outputs.cache-hit != 'true'
         run: curl http://fpdownload.macromedia.com/air/win/download/32.0/AdobeAIRSDK.zip -O
 
