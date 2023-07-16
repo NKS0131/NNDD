@@ -7,6 +7,7 @@ on:
       - libs/**
       - src/**
       - nicovideo4as
+  workflow_dispatch:
 jobs:
   build-air:
     runs-on: ubuntu-latest
