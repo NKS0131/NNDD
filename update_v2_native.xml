@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <update xmlns="http://ns.riaspace.com/air/framework/update/description/1.1">
     <dmg>
-        <version>4.4.6</version>
-        <url>https://github.com/nndd-reboot/NNDD/releases/download/v4.4.6/NNDD_v4_4_6.dmg</url>
+        <version>4.4.7</version>
+        <url>https://github.com/nndd-reboot/NNDD/releases/download/v4.4.7/NNDD_v4_4_7.dmg</url>
         <description><![CDATA[
+2023-07-16 v4.4.7
+・コメントの取得結果を強制的に成功として処理するように修正
+
 2023-02-09 v4.4.6
 ・ニコニコ側でRSSのバグ修正が行われたため、v4.4.4で行った修正を戻した
 
@@ -240,9 +243,12 @@
     </dmg>
 
     <exe>
-        <version>4.4.6</version>
-        <url>https://github.com/nndd-reboot/NNDD/releases/download/v4.4.6/NNDD_v4_4_6.exe</url>
+        <version>4.4.7</version>
+        <url>https://github.com/nndd-reboot/NNDD/releases/download/v4.4.7/NNDD_v4_4_7.exe</url>
         <description><![CDATA[
+2023-07-16 v4.4.7
+・コメントの取得結果を強制的に成功として処理するように修正
+
 2023-02-09 v4.4.6
 ・ニコニコ側でRSSのバグ修正が行われたため、v4.4.4で行った修正を戻した
 
