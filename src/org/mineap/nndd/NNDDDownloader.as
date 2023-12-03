@@ -1228,21 +1228,22 @@ package org.mineap.nndd {
                 return;
             }
 
-            var fileIO: FileIO = new FileIO();
-            fileIO.addFileStreamEventListener(IOErrorEvent.IO_ERROR, function (event: IOErrorEvent): void {
-                trace(COMMENT_GET_FAIL + ":" + event + ":" + event.target + ":" + event.text);
-                LogManager.instance.addLog(COMMENT_GET_FAIL + ":" + _saveVideoName + ".xml" + ":" + event + ":" +
-                                           event.target + ":" + event.text);
-                dispatchEvent(new IOErrorEvent(COMMENT_GET_FAIL, false, false, event.text));
-                close(true, true, event);
-            });
-            var path: String = fileIO.saveComment(
-                loader.xml,
-                this._saveVideoName + ".xml",
-                this._saveDir.url,
-                this._isAppendComment,
-                this._maxCommentCount
-            ).nativePath;
+            // var fileIO: FileIO = new FileIO();
+            // fileIO.addFileStreamEventListener(IOErrorEvent.IO_ERROR, function (event: IOErrorEvent): void {
+            //     trace(COMMENT_GET_FAIL + ":" + event + ":" + event.target + ":" + event.text);
+            //     LogManager.instance.addLog(COMMENT_GET_FAIL + ":" + _saveVideoName + ".xml" + ":" + event + ":" +
+            //                                event.target + ":" + event.text);
+            //     dispatchEvent(new IOErrorEvent(COMMENT_GET_FAIL, false, false, event.text));
+            //     close(true, true, event);
+            // });
+            // var path: String = fileIO.saveComment(
+            //     loader.xml,
+            //     this._saveVideoName + ".xml",
+            //     this._saveDir.url,
+            //     this._isAppendComment,
+            //     this._maxCommentCount
+            // ).nativePath;
+            var path: String = "";
 
             //通常コメントの取得完了を通知
             loader.close();
@@ -1308,34 +1309,35 @@ package org.mineap.nndd {
                 return;
             }
 
-            var fileIO: FileIO = new FileIO();
-            fileIO.addFileStreamEventListener(IOErrorEvent.IO_ERROR, function (event: IOErrorEvent): void {
-                trace(OWNER_COMMENT_GET_FAIL + ":" + event + ":" + event.target + ":" + event.text);
-                LogManager.instance.addLog(OWNER_COMMENT_GET_FAIL + ":" + _saveVideoName + "[Owner].xml" + ":" + event +
-                                           ":" + event.target + ":" + event.text);
-                dispatchEvent(new IOErrorEvent(OWNER_COMMENT_GET_FAIL, false, false, event.text));
-                close(true, true, event);
-            });
+            // var fileIO: FileIO = new FileIO();
+            // fileIO.addFileStreamEventListener(IOErrorEvent.IO_ERROR, function (event: IOErrorEvent): void {
+            //     trace(OWNER_COMMENT_GET_FAIL + ":" + event + ":" + event.target + ":" + event.text);
+            //     LogManager.instance.addLog(OWNER_COMMENT_GET_FAIL + ":" + _saveVideoName + "[Owner].xml" + ":" + event +
+            //                                ":" + event.target + ":" + event.text);
+            //     dispatchEvent(new IOErrorEvent(OWNER_COMMENT_GET_FAIL, false, false, event.text));
+            //     close(true, true, event);
+            // });
 
             var ownerComments: XML = (event.currentTarget as CommentLoader).xml;
 
-            var ngups: XML = new XML("<ngups/>");
-            //投稿者によってフィルタが設定されていればそれを投稿者コメントXMLファイルに追記
-            for each(var ngup: NgUp in this._ownerCommentLoader.ngWords) {
-                var xml: XML = new XML("<ngup/>");
-                xml.@ngword = encodeURIComponent(ngup.ngWord);
-                xml.@changeValue = encodeURIComponent(ngup.changeValue);
-                ngups.appendChild(xml);
-            }
-            ownerComments.appendChild(ngups);
+            // var ngups: XML = new XML("<ngups/>");
+            // //投稿者によってフィルタが設定されていればそれを投稿者コメントXMLファイルに追記
+            // for each(var ngup: NgUp in this._ownerCommentLoader.ngWords) {
+            //     var xml: XML = new XML("<ngup/>");
+            //     xml.@ngword = encodeURIComponent(ngup.ngWord);
+            //     xml.@changeValue = encodeURIComponent(ngup.changeValue);
+            //     ngups.appendChild(xml);
+            // }
+            // ownerComments.appendChild(ngups);
 
-            var path: String = fileIO.saveComment(
-                ownerComments,
-                this._saveVideoName + "[Owner].xml",
-                this._saveDir.url,
-                this._isAppendComment,
-                this._maxCommentCount
-            ).nativePath;
+            // var path: String = fileIO.saveComment(
+            //     ownerComments,
+            //     this._saveVideoName + "[Owner].xml",
+            //     this._saveDir.url,
+            //     this._isAppendComment,
+            //     this._maxCommentCount
+            // ).nativePath;
+            var path: String = "";
 
             this._threadId = this._ownerCommentLoader.threadId;
 
@@ -1387,6 +1389,9 @@ package org.mineap.nndd {
          *
          */
         private function searchAtCMInstruction(ownerComment: XML): Array {
+            // TODO: 強制
+            return new Array();
+
             var xmlList: XMLList = ownerComment.chat;
             var nicowariVideoIDs: Array = new Array();
 
