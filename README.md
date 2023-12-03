@@ -73,5 +73,5 @@ MITライセンスに示されるとおり, 本ソフトウェアは**無保証*
 [NNDD+DMC on Linux]: https://github.com/SSW-SCIENTIFIC/NNDD/wiki/(%E5%8F%82%E8%80%83)-Linux%E3%81%B8%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB
 [Release-Latest]: https://github.com/nndd-reboot/NNDD/releases/latest
 [Releases]: https://github.com/nndd-reboot/NNDD/releases
-[5ch nndd]: https://egg.5ch.net/test/read.cgi/software/1622748248/l50
+[5ch nndd]: https://egg.5ch.net/test/read.cgi/software/1701226145/l50
 [discord nndd]: https://discord.gg/KhkyjwuJRh
