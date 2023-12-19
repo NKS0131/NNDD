@@ -491,48 +491,6 @@
                             </mx:Canvas>
                         </mx:TabNavigator>
                     </mx:Canvas>
-                    <mx:Canvas label="市場" width="100%" height="100%" horizontalScrollPolicy="off"
-                               verticalScrollPolicy="off" id="canvas_ichiba">
-                        <mx:TabNavigator left="0" top="0" bottom="0" right="0" id="tab_inner_ichiba"
-                                         backgroundAlpha="0.3">
-                            <mx:Canvas label="ニコニコ" width="100%" height="100%">
-                                <mx:DataGrid showHeaders="false" left="0" top="0" bottom="0" right="0"
-                                             rowHeight="80" dataProvider="{ichibaNicoProvider}"
-                                             id="dataGrid_ichiba_nico" doubleClickEnabled="true"
-                                             itemDoubleClick="ichibaDataGridDoubleClicked(event)"
-                                             contentBackgroundAlpha="0.3">
-                                    <mx:columns>
-                                        <mx:DataGridColumn dataField="col_image" width="80">
-                                            <mx:itemRenderer>
-                                                <fx:Component>
-                                                    <mx:Image width="80" height="80"/>
-                                                </fx:Component>
-                                            </mx:itemRenderer>
-                                        </mx:DataGridColumn>
-                                        <mx:DataGridColumn dataField="col_info"/>
-                                    </mx:columns>
-                                </mx:DataGrid>
-                            </mx:Canvas>
-                            <mx:Canvas label="ローカル" width="100%" height="100%">
-                                <mx:DataGrid showHeaders="false" left="0" top="0" bottom="0"
-                                             right="0" rowHeight="80" dataProvider="{ichibaLocalProvider}"
-                                             id="dataGrid_ichiba_local" doubleClickEnabled="true"
-                                             itemDoubleClick="ichibaDataGridDoubleClicked(event)"
-                                             contentBackgroundAlpha="0.3">
-                                    <mx:columns>
-                                        <mx:DataGridColumn dataField="col_image" width="80">
-                                            <mx:itemRenderer>
-                                                <fx:Component>
-                                                    <mx:Image width="80" height="80"/>
-                                                </fx:Component>
-                                            </mx:itemRenderer>
-                                        </mx:DataGridColumn>
-                                        <mx:DataGridColumn dataField="col_info"/>
-                                    </mx:columns>
-                                </mx:DataGrid>
-                            </mx:Canvas>
-                        </mx:TabNavigator>
-                    </mx:Canvas>
                     <mx:Canvas label="投稿者" width="100%" height="100%" id="canvas_owner" verticalScrollPolicy="off"
                                horizontalScrollPolicy="off">
 

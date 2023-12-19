@@ -755,14 +755,6 @@ package org.mineap.nndd.player.comment {
         private function commentClickEventHandler(event: MouseEvent): void {
 //			trace((event.currentTarget as Text).text);
             videoInfoView.selectComment((event.currentTarget as NNDDText).no);
-
-            videoPlayer.videoController.commentPostView.textInput_comment.text = (event.currentTarget as NNDDText).text;
-            videoPlayer.videoController.commentPostView.textinput_command.text = (event.currentTarget as NNDDText).mail;
-
-            videoPlayer.videoController_under.commentPostView.textInput_comment.text =
-                (event.currentTarget as NNDDText).text;
-            videoPlayer.videoController_under.commentPostView.textinput_command.text =
-                (event.currentTarget as NNDDText).mail;
         }
 
         /**

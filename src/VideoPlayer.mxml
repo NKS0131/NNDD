@@ -47,9 +47,6 @@
                 this.setStyle("contentBackgroundColor", "#FFFFFF");
                 vbox_videoPlayer.setStyle("backgroundColor", "#FFFFFF");
             }
-
-            videoController.commentPostView.changeColor(isDark);
-            videoController_under.commentPostView.changeColor(isDark);
         }
 
         protected function textArea_tag_keyDownHandler(event: KeyboardEvent): void {

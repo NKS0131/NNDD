@@ -60,8 +60,6 @@ public function init(
 
     readStore();
 
-    this.commentPostView.init(playerController, videoPlayer, playerController.videoInfoView);
-
     if (enableTimer) {
         timer = new Timer(100);
         timer.addEventListener(TimerEvent.TIMER, hideController);

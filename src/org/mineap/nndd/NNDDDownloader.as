@@ -30,7 +30,6 @@ package org.mineap.nndd {
     import org.mineap.nicovideo4as.analyzer.WatchDataAnalyzer;
     import org.mineap.nicovideo4as.analyzer.WatchDataAnalyzerGetFlvAdapter;
     import org.mineap.nicovideo4as.api.ApiGetBgmAccess;
-    import org.mineap.nicovideo4as.loader.IchibaInfoLoader;
     import org.mineap.nicovideo4as.loader.ThumbImgLoader;
     import org.mineap.nicovideo4as.loader.ThumbInfoLoader;
     import org.mineap.nicovideo4as.loader.api.ApiDmcAccess;
@@ -76,7 +75,6 @@ package org.mineap.nndd {
         private var _getbgmAccess: ApiGetBgmAccess;
         private var _thumbInfoLoader: ThumbInfoLoader;
         private var _thumbImgLoader: ThumbImgLoader;
-        private var _ichibaInfoLoader: IchibaInfoLoader;
         private var _videoLoader: VideoLoader;
         private var _videoStream: VideoStream;
 
@@ -274,21 +272,6 @@ package org.mineap.nndd {
          * サムネイル画像の取得に成功したとき、typeプロパティがこの定数に設定されたEventが発行されます。
          */
         public static const THUMB_IMG_GET_SUCCESS: String = "ThumbImgGetSuccess";
-
-        /**
-         *
-         */
-        public static const ICHIBA_INFO_GET_START: String = "IchibaInfoGetStart";
-
-        /**
-         * 市場情報の取得に失敗したとき、typeプロパティがこの定数に設定されたIOErrorEventが発行されます。
-         */
-        public static const ICHIBA_INFO_GET_FAIL: String = "IchibaInfoGetFail";
-
-        /**
-         * 市場情報の取得に成功したとき、typeプロパティがこの定数に設定されたEventが発行されます。
-         */
-        public static const ICHIBA_INFO_GET_SUCCESS: String = "IchibaInfoGetSuccess";
 
         /**
          *
@@ -896,7 +879,6 @@ package org.mineap.nndd {
                 LogManager.instance.addLog(THUMB_IMG_GET_FAIL + ":" + _videoId + ":" + event + ":" + event.target +
                                            ":" + event.text);
                 dispatchEvent(new IOErrorEvent(THUMB_IMG_GET_FAIL, false, false, event.text));
-//				downloadIchibaInfo();
                 getFlvAccess();
             });
             this._thumbImgLoader.addEventListener(
@@ -1362,7 +1344,7 @@ package org.mineap.nndd {
                 if (this._nicowariVideoIds.length == 0) {
                     //投コメにニコ割は指定されていない。getbgmを確認せずに市場情報を取得しにいく
 //					getThumbInfo(this._thumbInfoId);
-                    downloadIchibaInfo();
+                    switcher();
                 } else {
                     this._getbgmAccess = new ApiGetBgmAccess();
                     //投コメにニコ割が指定されている。getbgmを確認してニコ割をダウンロード
@@ -1453,7 +1435,7 @@ package org.mineap.nndd {
             } else if (this._nicowariVideoUrls == null || this._nicowariVideoUrls.length <= 0) {
                 //ニコ割無し
 //				getThumbInfo(this._thumbInfoId);
-                downloadIchibaInfo();
+                switcher();
 
             } else {
 
@@ -1506,8 +1488,7 @@ package org.mineap.nndd {
                 if (_nicowariVideoIds.length <= 0 || _nicowariVideoUrls.length <= 0) {
                     //サムネイル情報取得
 //					getThumbInfo(_thumbInfoId);
-                    downloadIchibaInfo();
-
+                    switcher();
                 } else {
                     //次のニコ割を取りにいく
                     getNicowari();
@@ -1556,88 +1537,13 @@ package org.mineap.nndd {
             if (this._nicowariVideoIds.length <= 0 || this._nicowariVideoUrls.length <= 0) {
                 //市場情報取得
 //				getThumbInfo(this._thumbInfoId);
-                downloadIchibaInfo();
+                switcher();
 
             } else {
                 //次のニコ割を取りにいく
                 getNicowari();
             }
 
-        }
-
-
-        /**
-         * サムネイル情報の取得を行います。
-         *
-         */
-        private function downloadIchibaInfo(): void {
-
-            // closeがよばれていないか？
-            if (this._login == null) {
-                return;
-            }
-
-            this._ichibaInfoLoader = new IchibaInfoLoader();
-            this._ichibaInfoLoader.addEventListener(Event.COMPLETE, ichibaInfoGetSuccess);
-            this._ichibaInfoLoader.addEventListener(IOErrorEvent.IO_ERROR, function (event: ErrorEvent): void {
-                (event.target as IchibaInfoLoader).close();
-                LogManager.instance.addLog(ICHIBA_INFO_GET_FAIL + ":" + _videoId + "(" + _thumbInfoId + "):" + event +
-                                           ":" + event.target + ":" + event.text);
-                trace(ICHIBA_INFO_GET_FAIL + ":" + event + ":" + event.target + ":" + event.text);
-                dispatchEvent(new IOErrorEvent(ICHIBA_INFO_GET_FAIL, false, false, event.text));
-                close(true, true, event);
-            });
-            this._ichibaInfoLoader.addEventListener(
-                HTTPStatusEvent.HTTP_RESPONSE_STATUS,
-                function (event: HTTPStatusEvent): void {
-                    trace(event);
-                    LogManager.instance.addLog("\t\t" + HTTPStatusEvent.HTTP_RESPONSE_STATUS + ":" + event);
-                }
-            );
-
-            trace(ICHIBA_INFO_GET_START + ":" + this._videoId);
-            LogManager.instance.addLog(ICHIBA_INFO_GET_START + ":" + this._videoId);
-            dispatchEvent(new Event(ICHIBA_INFO_GET_START));
-
-            this._ichibaInfoLoader.getIchibaInfo(this._thumbInfoId);
-        }
-
-        /**
-         * 市場情報のダウンロードが完了したら呼ばれます。<br>
-         * 市場情報の保存が完了したら、動画のダウンロードを行います。
-         *
-         * @param event
-         *
-         */
-        private function ichibaInfoGetSuccess(event: Event): void {
-
-            // closeがよばれていないか？
-            if (this._login == null) {
-                return;
-            }
-
-            var fileIO: FileIO = new FileIO();
-            fileIO.addFileStreamEventListener(IOErrorEvent.IO_ERROR, function (event: IOErrorEvent): void {
-                trace(ICHIBA_INFO_GET_FAIL + ":" + event + ":" + event.target + ":" + event.text);
-                LogManager.instance.addLog(ICHIBA_INFO_GET_FAIL + ":" + _saveVideoName + "[IchibaInfo].html" + ":" +
-                                           event + ":" + event.target + ":" + event.text);
-                dispatchEvent(new IOErrorEvent(ICHIBA_INFO_GET_FAIL, false, false, event.text));
-                close(true, true, event);
-            });
-            var path: String = fileIO.saveHtml(
-                ((event.target as IchibaInfoLoader).data as String),
-                this._saveVideoName + "[IchibaInfo].html",
-                this._saveDir.url
-            ).nativePath;
-
-            //市場情報取得完了通知
-            this._ichibaInfoLoader.close();
-            LogManager.instance.addLog("\t" + ICHIBA_INFO_GET_SUCCESS + ":" + path);
-            trace(ICHIBA_INFO_GET_SUCCESS + ":" + event + "\n" + path);
-            dispatchEvent(new Event(ICHIBA_INFO_GET_SUCCESS));
-
-
-            switcher();
         }
 
         private function createNNDDServerRequest(): URLRequest {
@@ -2303,7 +2209,6 @@ package org.mineap.nndd {
             this._getbgmAccess = null;
             this._thumbInfoLoader = null;
             this._thumbImgLoader = null;
-            this._ichibaInfoLoader = null;
             this._videoLoader = null;
             this._retryCount = 0;
             this._downloadedSize = 0;
@@ -2416,12 +2321,6 @@ package org.mineap.nndd {
             try {
                 this._thumbImgLoader.close();
                 trace(this._thumbImgLoader + " is closed.");
-            } catch (error: Error) {
-//				trace(error.getStackTrace());
-            }
-            try {
-                this._ichibaInfoLoader.close();
-                trace(this._ichibaInfoLoader + " is closed.");
             } catch (error: Error) {
 //				trace(error.getStackTrace());
             }
@@ -2584,16 +2483,6 @@ package org.mineap.nndd {
 
                 // サムネイル画像を置き換え
                 nowFile = new File(PathMaker.createThumbImgFilePath(oldVideoPath));
-                if (nowFile.exists) {
-                    newFile = nowFile.parent.resolvePath(nowFile.name.replace(threadId, videoId));
-                    if (newFile.exists) {
-                        newFile.moveToTrash();
-                    }
-                    nowFile.moveTo(newFile, false);
-                }
-
-                // 市場情報を置き換え
-                nowFile = new File(PathMaker.createNicoIchibaInfoPathByVideoPath(oldVideoPath));
                 if (nowFile.exists) {
                     newFile = nowFile.parent.resolvePath(nowFile.name.replace(threadId, videoId));
                     if (newFile.exists) {

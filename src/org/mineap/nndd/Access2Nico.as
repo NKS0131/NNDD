@@ -68,7 +68,6 @@ package org.mineap.nndd {
         private var isGetThumbInfo: Boolean = false;
         private var isVideoOnlyDownload: Boolean = false;
         private var isNicowariGetting: Boolean = false;
-        private var isGetIchiba: Boolean = false;
         private var isCommentPost: Boolean = false;
         private var showOnlyPermissionIDComment: Boolean = false;
         private var isEconomy: Boolean = true;
@@ -157,8 +156,6 @@ package org.mineap.nndd {
         private var owner_description: String = "取得できませんでした。";
         private var videoStatus: String = "サムネイル情報を取得できませんでした。";
 
-        private var ichibaInfo: String = "市場情報が取得できませんでした。";
-
         private var pageIndex: int = 1;
 
         private var myNicowariVideoIDs: Array = new Array();
@@ -177,7 +174,6 @@ package org.mineap.nndd {
         public static const NICOWARI_DOWNLOAD_COMPLETE: String = "NicowariDownloadComplete";
         public static const DOWNLOAD_CANCEL: String = "DownloadCancel";
         public static const DOWNLOAD_ERROR_CANCEL: String = "DownloadErrorCancel";
-        public static const NICO_ICHIBA_INFO_GET_COMPLETE: String = "NicoIchibaInfoGetComplete";
         public static const NICO_POST_COMMENT_COMPLETE: String = "NicoPostCommentComplete";
         public static const NICO_POST_COMMENT_FAIL: String = "NicoPostCommentFail";
 
@@ -643,32 +639,6 @@ package org.mineap.nndd {
         }
 
         /**
-         * 指定された動画の市場情報を取得します。
-         * @param topPageUrl
-         * @param loginUrl
-         * @param mailAddress
-         * @param password
-         * @param videoID
-         *
-         */
-        public function request_ichiba(
-            topPageUrl: String,
-            loginUrl: String,
-            mailAddress: String,
-            password: String,
-            videoID: String
-        ): void {
-
-            this.isGetIchiba = true;
-            this.videoID = videoID;
-
-            this.mailAddress = mailAddress;
-            this.password = password;
-
-            this.login(topPageUrl, loginUrl, mailAddress, password);
-        }
-
-        /**
          *
          * @param topPageUrl
          * @param loginUrl
@@ -842,15 +812,6 @@ package org.mineap.nndd {
             return videoStatus;
         }
 
-        /**
-         * 市場の埋め込みHTMLを返します。
-         * @return
-         *
-         */
-        public function getIchibaHTML(): String {
-            return this.ichibaInfo;
-        }
-
         public function getPostComment(): XML {
             return this.postCommentXML;
         }
@@ -966,10 +927,6 @@ package org.mineap.nndd {
                 /* サムネイル情報のみを取りにいく */
                 logManager.addLog("サムネイル情報の取得を開始");
                 this.getThumbInfo(this.thumbVideoID, -1, false);
-            } else if (isGetIchiba) {
-                /* 市場の情報を取りにいく */
-                logManager.addLog("市場情報の取得を開始");
-                this.getIchibaInfo(this.videoID, -1, false);
             }
 
         }
@@ -2135,25 +2092,9 @@ package org.mineap.nndd {
          */
         private function getThumbInfoByNomalDLProcess(url: String, rankingIndex: int, isSave: Boolean): void {
             this.addEventListener(NICO_THUMB_INFO_GET_COMPLETE, function (event: Event): void {
-                getIchibaInfoByNomalDLProcess(url, rankingIndex, isSave);
-
-            });
-            this.getThumbInfo(url, rankingIndex, isSave);
-        }
-
-        /**
-         * 通常のDLプロセスの中で市場情報を取得しにいきます。
-         *
-         * @param url
-         * @param rankingIndex
-         * @param isSave
-         *
-         */
-        private function getIchibaInfoByNomalDLProcess(url: String, rankingIndex: int, isSave: Boolean): void {
-            this.addEventListener(NICO_ICHIBA_INFO_GET_COMPLETE, function (event: Event): void {
                 nicowariOrVideoStart();
             });
-            this.getIchibaInfo(url, rankingIndex, isSave);
+            this.getThumbInfo(url, rankingIndex, isSave);
         }
 
         /**
@@ -2648,81 +2589,6 @@ package org.mineap.nndd {
 
         /* コメントポストここまで ----------------------------------------------- */
 
-        /* 市場情報取得ここから ------------------------------------------------ */
-
-        private function getIchibaInfo(videoID: String, index: int, isSave: Boolean, videoName: String = null): void {
-            //http://ichiba5.nicovideo.jp/embed/?action=showMain&v=sm280671&country=jp&rev=20090119
-            var loader: URLLoader;
-            loader = new URLLoader();
-            loader.addEventListener(IOErrorEvent.IO_ERROR, function (event: Event): void {
-                if (videoName == null) {
-                    logManager.addLog("エラー:市場情報の取得に失敗。\n対象のWebサービスが現在利用可能かどうか確認してください。");
-                    tagArray.push("市場情報の取得に失敗。");
-                    dispatchEvent(new Event(Access2Nico.NICO_ICHIBA_INFO_GET_COMPLETE));
-                }
-                if (index != -1) {
-                    if (videoName != null && videoName ==
-                        rankingListProvider.getItemAt(index).dataGridColumn_videoName) {
-                        rankingListProvider.setItemAt({
-                                                          dataGridColumn_ranking: rankingListProvider.getItemAt(index).dataGridColumn_ranking,
-                                                          dataGridColumn_preview: rankingListProvider.getItemAt(index).dataGridColumn_preview,
-                                                          dataGridColumn_videoName: rankingListProvider.getItemAt(index).dataGridColumn_videoName,
-                                                          dataGridColumn_Info: rankingListProvider.getItemAt(index).dataGridColumn_Info,
-                                                          dataGridColumn_videoInfo: "市場情報の取得に失敗。",
-                                                          dataGridColumn_condition: rankingListProvider.getItemAt(index).dataGridColumn_condition,
-                                                          dataGridColumn_downloadedItemUrl: rankingListProvider.getItemAt(
-                                                              index).dataGridColumn_downloadedItemUrl
-                                                      }, index);
-                    }
-                    dispatchEvent(new Event(Access2Nico.NICO_ICHIBA_INFO_GET_COMPLETE));
-                }
-                loader.close();
-                loader = null;
-            });
-            loader.addEventListener(Event.COMPLETE, function (event: Event): void {
-
-                try {
-                    loader.close();
-
-                    if (isSave) {
-                        var fileIO: FileIO = new FileIO(logManager);
-                        var filePath: String = path;
-                        var fileName: String = videoTitle;
-
-                        fileIO.saveComment(
-                            loader.data,
-                            fileName + "[IchibaInfo].html",
-                            filePath,
-                            false,
-                            Application.application.getSaveCommentMaxCount()
-                        );
-                        fileIO.closeFileStream();
-                        logManager.addLog("[" + fileName + "[IchibaInfo].html" + "]のダウンロードが完了しました。\nファイル:" + path +
-                                          fileName + "[IchibaInfo].html");
-                    }
-                    loader = null;
-                    ichibaInfo = (event.target as URLLoader).data;
-
-                    dispatchEvent(new Event(Access2Nico.NICO_ICHIBA_INFO_GET_COMPLETE));
-                } catch (error: Error) {
-                    logManager.addLog(Message.ERROR + ":" + error.getStackTrace());
-                    Alert.show("予期せぬ例外が発生しました。\n" + error, Message.M_ERROR);
-                    allClose(true);
-                }
-            });
-            var balance: int = (Math.random() * 100) % 5;
-            if (balance == 0) {
-                balance++;
-            }
-            var url: String = "http://ichiba" + balance + ".nicovideo.jp/embed/?action=showMain&v=" + videoID +
-                              "&rev=20090122";
-            trace(url);
-            loader.load(new URLRequest(url));
-
-        }
-
-        /* 市場情報取得ここまで ------------------------------------------------ */
-
         /* サムネイル情報取得ここから -------------------------------------------- */
 
         /**
@@ -3086,9 +2952,6 @@ package org.mineap.nndd {
             } else if (this.isGetThumbInfo) {
                 this.logManager.addLog("エラー:サムネイル情報の更新に失敗。" + evt.target + ":" + evt);
 //				Alert.show("エラー：サムネイル情報の取得に失敗。\n対象のWebサービスが現在利用可能かどうか確認してください。", "Error");
-            } else if (this.isGetIchiba) {
-                this.logManager.addLog("エラー:市場情報の更新に失敗。" + evt.target + ":" + evt);
-//				Alert.show("エラー：エラー:マイリストの更新に失敗。\n対象のWebサービスが現在利用可能かどうか確認してください。", "Error");
             } else if (this.isCommentPost) {
                 this.logManager.addLog("エラー:コメントの投稿に失敗。" + evt.target + ":" + evt);
             } else if (this.isThumbImgGetting) {
@@ -3291,8 +3154,6 @@ package org.mineap.nndd {
                 dispatchEvent(new Event(NICO_SINGLE_THUMB_INFO_GET_COMPLETE));
             } else if (this.isNicowariGetting) {
                 dispatchEvent(new Event(NICOWARI_DOWNLOAD_COMPLETE));
-            } else if (this.isGetIchiba) {
-                dispatchEvent(new Event(NICO_ICHIBA_INFO_GET_COMPLETE));
             } else if (isCancel && !isError) {
                 dispatchEvent(new Event(DOWNLOAD_CANCEL));
             } else if (isCancel && isError) {

@@ -7,7 +7,6 @@ package org.mineap.nndd {
 
     import org.mineap.nicovideo4as.Login;
     import org.mineap.nicovideo4as.WatchVideoPage;
-    import org.mineap.nicovideo4as.loader.IchibaInfoLoader;
     import org.mineap.nicovideo4as.loader.ThumbInfoLoader;
 
     [Event(name="success", type="NNDDVideoPageWatcher")]
@@ -33,8 +32,6 @@ package org.mineap.nndd {
         private var _watch: WatchVideoPage = null;
 
         private var _thumbInfoLoader: ThumbInfoLoader = null;
-
-        private var _ichibaInfoLoader: IchibaInfoLoader = null;
 
         /**
          * 動画ページの閲覧に成功した場合、typeにこの文字列が設定されたイベントが発行されます。
@@ -128,17 +125,10 @@ package org.mineap.nndd {
          *
          */
         private function thumbInfoLoadSuccessEventListener(event: Event): void {
-
             trace(event);
             LogManager.instance.addLog("\t" + event.type + ":" + this._videoId + ":" + event);
-
-            this._ichibaInfoLoader = new IchibaInfoLoader();
-
-            this._ichibaInfoLoader.addEventListener(Event.COMPLETE, ichibaInfoLoadSuccssEventListener);
-            this._ichibaInfoLoader.addEventListener(IOErrorEvent.IO_ERROR, ichibaInfoLoadFailEventListener);
-            this._ichibaInfoLoader.addEventListener(HTTPStatusEvent.HTTP_RESPONSE_STATUS, httpResponseStatusHandler);
-
-            this._ichibaInfoLoader.getIchibaInfo(this._videoId);
+            close();
+            dispatchEvent(new Event(SUCCESS));
         }
 
         /**
@@ -170,20 +160,6 @@ package org.mineap.nndd {
             dispatchEvent(new ErrorEvent(FAIL));
         }
 
-        private function ichibaInfoLoadSuccssEventListener(event: Event): void {
-            trace(event);
-            LogManager.instance.addLog("\t" + event.type + ":" + this._videoId + ":" + event);
-            close();
-            dispatchEvent(new Event(SUCCESS));
-        }
-
-        private function ichibaInfoLoadFailEventListener(event: Event): void {
-            trace(event);
-            LogManager.instance.addLog("\t" + event.type + ":" + this._videoId + ":" + event);
-            close();
-            dispatchEvent(new ErrorEvent(FAIL));
-        }
-
         private function httpResponseStatusHandler(event: HTTPStatusEvent): void {
             trace(event);
             LogManager.instance.addLog("\t\t" + event.type + ":" + event);
@@ -205,15 +181,6 @@ package org.mineap.nndd {
          */
         public function get thumbInfoLoader(): ThumbInfoLoader {
             return this._thumbInfoLoader;
-        }
-
-        /**
-         * 動画ページへのアクセス後、市場情報取得APIにアクセスしたIchibaInfoLaoderクラスのインスタンスを返します。
-         * @return
-         *
-         */
-        public function get ichibaInfoLoader(): IchibaInfoLoader {
-            return this._ichibaInfoLoader;
         }
 
         /**

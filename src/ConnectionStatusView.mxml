@@ -42,8 +42,6 @@
                 "http://tn-skr4.smilevideo.jp/smile"
         );
         private var getThumbInfoUrl: String = "http://ext.nicovideo.jp/api/getthumbinfo";
-        //			private var ichibaInfoUrlArray:Array = new Array("http://ichiba1.nicovideo.jp/embed", "http://ichiba2.nicovideo.jp/embed", "http://ichiba3.nicovideo.jp/embed", "http://ichiba4.nicovideo.jp/embed");
-        private var ichibaInfoUrlArray: Array = new Array("http://ichiba.nicovideo.jp/embed/");
         private var rankingUrl: String = "http://www.nicovideo.jp/ranking";
         private var tagSearchUrl: String = "http://www.nicovideo.jp/tag";
         private var searchUrl: String = "http://www.nicovideo.jp/search";
@@ -62,7 +60,6 @@
         private var check_video: NicoServerStatusCheck = null;
         private var check_thumbImg: NicoServerStatusCheck = null;
         private var check_thumbInfo: NicoServerStatusCheck = null;
-        private var check_ichiba: NicoServerStatusCheck = null;
 
         public function setLogManager(logManager: LogManager): void {
             this.logManager = logManager;
@@ -100,9 +97,6 @@
                 return false;
             }
             if (check_thumbInfo != null) {
-                return false;
-            }
-            if (check_ichiba != null) {
                 return false;
             }
 
@@ -150,9 +144,6 @@
                 if (check_thumbInfo != null) {
                     check_thumbInfo.close();
                 }
-                if (check_ichiba != null) {
-                    check_ichiba.close();
-                }
 
                 check_login = null;
                 check_ranking = null;
@@ -165,7 +156,6 @@
                 check_video = null;
                 check_thumbImg = null;
                 check_thumbInfo = null;
-                check_ichiba = null;
 
             } else {
 
@@ -307,18 +297,6 @@
                     }
                 });
                 check_thumbInfo.checkUrl(getThumbInfoUrl, label_thumbInfo, "サムネイル情報サーバー");
-
-                check_ichiba = new NicoServerStatusCheck(logManager);
-                check_ichiba.addEventListener(Event.COMPLETE, function (event: Event): void {
-                    if (check_ichiba != null) {
-                        check_ichiba.close();
-                        check_ichiba = null;
-                    }
-                    if (isFullComplete()) {
-                        button_start.label = "サーバーの状況を診断";
-                    }
-                });
-                check_ichiba.check(ichibaInfoUrlArray, label_ichiba, "市場情報サーバー");
             }
 
         }
@@ -384,11 +362,6 @@
         <s:HGroup>
             <mx:Label text="サムネイル情報API："/>
             <mx:Label text="未実施" id="label_thumbInfo" fontWeight="normal"/>
-        </s:HGroup>
-
-        <s:HGroup>
-            <mx:Label text="市場情報サーバー："/>
-            <mx:Label text="未実施" id="label_ichiba" fontWeight="normal"/>
         </s:HGroup>
 
         <mx:HRule width="100%"/>

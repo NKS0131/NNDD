@@ -340,13 +340,6 @@ package org.mineap.nndd.download {
                     0,
                     true
                 );
-                this._nnddDownloader.addEventListener(
-                    NNDDDownloader.ICHIBA_INFO_GET_FAIL,
-                    getFailListener,
-                    false,
-                    0,
-                    true
-                );
                 this._nnddDownloader.addEventListener(NNDDDownloader.LOGIN_FAIL, getFailListener, false, 0, true);
                 this._nnddDownloader.addEventListener(
                     NNDDDownloader.NICOWARI_GET_FAIL,
@@ -389,13 +382,6 @@ package org.mineap.nndd.download {
                 );
                 this._nnddDownloader.addEventListener(
                     NNDDDownloader.GETFLV_API_ACCESS_SUCCESS,
-                    getSuccessListener,
-                    false,
-                    0,
-                    true
-                );
-                this._nnddDownloader.addEventListener(
-                    NNDDDownloader.ICHIBA_INFO_GET_SUCCESS,
                     getSuccessListener,
                     false,
                     0,
@@ -449,13 +435,6 @@ package org.mineap.nndd.download {
                 );
                 this._nnddDownloader.addEventListener(
                     NNDDDownloader.GETFLV_API_ACCESS_START,
-                    getProgressListener,
-                    false,
-                    0,
-                    true
-                );
-                this._nnddDownloader.addEventListener(
-                    NNDDDownloader.ICHIBA_INFO_GET_START,
                     getProgressListener,
                     false,
                     0,
@@ -808,8 +787,6 @@ package org.mineap.nndd.download {
                 status = "サムネイル情報取得中...";
             } else if (event.type == NNDDDownloader.THUMB_IMG_GET_START) {
                 status = "サムネイル画像取得中...";
-            } else if (event.type == NNDDDownloader.ICHIBA_INFO_GET_START) {
-                status = "市場情報取得中...";
             } else if (event.type == NNDDDownloader.VIDEO_GET_START) {
                 status = "動画取得中...";
             }
@@ -856,8 +833,6 @@ package org.mineap.nndd.download {
                 status = "サムネイル情報取得成功";
             } else if (event.type == NNDDDownloader.THUMB_IMG_GET_SUCCESS) {
                 status = "サムネイル画像取得成功";
-            } else if (event.type == NNDDDownloader.ICHIBA_INFO_GET_SUCCESS) {
-                status = "市場情報取得成功";
             } else if (event.type == NNDDDownloader.VIDEO_GET_SUCCESS) {
                 status = "動画取得成功";
             }
@@ -901,8 +876,6 @@ package org.mineap.nndd.download {
                 status = "サムネイル情報取得失敗";
             } else if (event.type == NNDDDownloader.THUMB_IMG_GET_FAIL) {
                 status = "サムネイル画像取得失敗";
-            } else if (event.type == NNDDDownloader.ICHIBA_INFO_GET_FAIL) {
-                status = "市場情報取得失敗";
             } else if (event.type == NNDDDownloader.VIDEO_GET_FAIL) {
                 status = "動画取得失敗";
             }

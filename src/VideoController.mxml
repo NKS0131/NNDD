@@ -29,9 +29,6 @@
 
     </s:HGroup>
 
-    <ns1:CommentPostView left="1" bottom="1" right="50" id="commentPostView">
-    </ns1:CommentPostView>
-
     <mx:HSlider id="slider_volume" right="3" top="34" width="47" height="14"
                 change="sliderVolumeChanged(event)" focusEnabled="false" liveDragging="true"
                 maximum="1" minimum="0" mouseFocusEnabled="true" mouseWheel="mouseWheel(event)"

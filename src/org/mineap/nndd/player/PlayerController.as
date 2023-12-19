@@ -38,7 +38,6 @@ package org.mineap.nndd.player {
     import org.mangui.hls.HLSSettings;
     import org.mangui.hls.constant.HLSSeekMode;
     import org.mangui.osmf.plugins.HLSPlugin;
-    import org.mineap.nicovideo4as.CommentPost;
     import org.mineap.nicovideo4as.MyListLoader;
     import org.mineap.nicovideo4as.WatchVideoPage;
     import org.mineap.nicovideo4as.analyzer.GetRelationResultAnalyzer;
@@ -67,7 +66,6 @@ package org.mineap.nndd.player {
     import org.mineap.nndd.player.model.PlayerTagString;
     import org.mineap.nndd.user.UserManager;
     import org.mineap.nndd.util.DateUtil;
-    import org.mineap.nndd.util.IchibaBuilder;
     import org.mineap.nndd.util.LibraryUtil;
     import org.mineap.nndd.util.NumberUtil;
     import org.mineap.nndd.util.PathMaker;
@@ -616,14 +614,13 @@ package org.mineap.nndd.player {
                     setInfo(
                         downLoadedURL,
                         thumbInfoPath,
-                        thumbInfoPath.substring(0, thumbInfoPath.lastIndexOf("/")) + "/nndd[IchibaInfo].html",
                         true
                     );
 
                     videoInfoView.image_thumbImg.source =
                         thumbInfoPath.substring(0, thumbInfoPath.lastIndexOf("/")) + "/nndd[ThumbImg].jpeg";
                 } else {
-                    setInfo(videoPath, thumbInfoPath, PathMaker.createNicoIchibaInfoPathByVideoPath(videoPath), false);
+                    setInfo(videoPath, thumbInfoPath, false);
 
                     var nnddVideo: NNDDVideo = libraryManager.isExist(PathMaker.getVideoID(videoPath));
 
@@ -1006,7 +1003,6 @@ package org.mineap.nndd.player {
             );
 //			renewDownloadManager.addEventListener(NNDDDownloader.COMMENT_GET_SUCCESS, getProgressListener);
 //			renewDownloadManager.addEventListener(NNDDDownloader.GETFLV_API_ACCESS_SUCCESS, getProgressListener);
-//			renewDownloadManager.addEventListener(NNDDDownloader.ICHIBA_INFO_GET_SUCCESS, getProgressListener);
 //			renewDownloadManager.addEventListener(NNDDDownloader.LOGIN_SUCCESS, getProgressListener);
 //			renewDownloadManager.addEventListener(NNDDDownloader.NICOWARI_GET_SUCCESS, getProgressListener);
 //			renewDownloadManager.addEventListener(NNDDDownloader.OWNER_COMMENT_GET_SUCCESS, getProgressListener);
@@ -1018,7 +1014,6 @@ package org.mineap.nndd.player {
 //
 //			renewDownloadManager.addEventListener(NNDDDownloader.COMMENT_GET_FAIL, getFailListener);
 //			renewDownloadManager.addEventListener(NNDDDownloader.GETFLV_API_ACCESS_FAIL, getFailListener);
-//			renewDownloadManager.addEventListener(NNDDDownloader.ICHIBA_INFO_GET_FAIL, getFailListener);
 //			renewDownloadManager.addEventListener(NNDDDownloader.LOGIN_FAIL, getFailListener);
 //			renewDownloadManager.addEventListener(NNDDDownloader.NICOWARI_GET_FAIL, getFailListener);
 //			renewDownloadManager.addEventListener(NNDDDownloader.OWNER_COMMENT_GET_FAIL, getFailListener);
@@ -3120,7 +3115,6 @@ package org.mineap.nndd.player {
         private function setInfo(
             videoPath: String,
             thumbInfoPath: String,
-            ichibaInfoPath: String,
             isStreaming: Boolean
         ): void {
 
@@ -3131,20 +3125,9 @@ package org.mineap.nndd.player {
                 if (videoID != null) {
 
                     //初期化
-                    videoInfoView.ichibaNicoProvider.addItem({
-                        col_image: "",
-                        col_info: "市場情報を取得中です",
-                        col_link: ""
-                    });
                     videoPlayer.videoInfoView.owner_text_nico = "";
 
                 } else {
-                    videoInfoView.ichibaNicoProvider.addItem({
-                        col_image: "",
-                        col_info: "市場情報を取得できませんでした。",
-                        col_link: ""
-                    });
-
                     var thumbInfoAnalyzer: ThumbInfoAnalyzer = null;
 
                     if (videoPath != null) {
@@ -3227,7 +3210,6 @@ package org.mineap.nndd.player {
 
             setNicoRelationInfo(videoID);	//関連情報はログイン無しに取得できるので常時取りに行く
 
-            setLocalIchibaInfo(ichibaInfoPath, isStreaming);
             setLocalThumbInfo(videoID, thumbInfoPath, isStreaming);
 
         }
@@ -3504,20 +3486,6 @@ package org.mineap.nndd.player {
                             } else {
                                 fail = true;
                             }
-
-                            var ichibaInfo: Object = watchVideoPage.ichibaInfoLoader.data;
-                            if (ichibaInfo != null && ichibaInfo is String) {
-                                var ichibaBuilder: IchibaBuilder = new IchibaBuilder(logManager);
-                                videoInfoView.ichibaNicoProvider = ichibaBuilder.makeIchibaInfo(ichibaInfo as String);
-                                videoInfoView.ichibaNicoProvider.refresh();
-                            } else {
-                                videoInfoView.ichibaNicoProvider.addItem({
-                                                                             col_image: "",
-                                                                             col_info: "市場情報を取得できませんでした(リトライします)",
-                                                                             col_link: ""
-                                                                         });
-                                fail = true;
-                            }
                         }
 
                     } catch (error: Error) {
@@ -3604,55 +3572,6 @@ package org.mineap.nndd.player {
                 videoInfoView.label_deletedInfo.visible = false;
                 videoInfoView.ownertext_comment_dividedbox.top = (videoInfoView.hgroup_thumbInfo.height + 4);
             }
-        }
-
-
-        /**
-         * 市場情報をセットします。
-         * @param ichibaInfoPath
-         * @param isStreaming trueの時は「ニコ動に市場情報」に指定された市場情報を設定します。
-         *
-         */
-        private function setLocalIchibaInfo(ichibaInfoPath: String, isStreaming: Boolean): void {
-
-            var ichibaBuilder: IchibaBuilder = new IchibaBuilder(logManager);
-
-            var fileIO: FileIO = new FileIO(logManager);
-            var fail: Boolean = false;
-            try {
-
-                var html: String = fileIO.loadTextSync(ichibaInfoPath);
-
-                if (html == null) {
-                    fail = true;
-                } else {
-
-                    if (!isStreaming) {
-                        videoInfoView.ichibaLocalProvider = ichibaBuilder.makeIchibaInfo(html);
-                    } else {
-                        videoInfoView.ichibaNicoProvider = ichibaBuilder.makeIchibaInfo(html);
-                    }
-
-                }
-            } catch (error: Error) {
-                trace(error.getStackTrace());
-                fail = true;
-            }
-
-            if (fail) {
-                if (isStreaming) {
-                    videoInfoView.ichibaNicoProvider.removeAll();
-                    videoInfoView.ichibaNicoProvider.addItem({
-                                                                 col_image: "", col_info: "(市場情報の取得に失敗)", col_link: ""
-                                                             });
-                } else {
-                    videoInfoView.ichibaLocalProvider.removeAll();
-                    videoInfoView.ichibaLocalProvider.addItem({
-                                                                  col_info: "(ローカルに市場情報が存在しません)"
-                                                              });
-                }
-            }
-
         }
 
         /**
@@ -4074,89 +3993,6 @@ package org.mineap.nndd.player {
         public function changeFps(fps: Number): void {
             this.commentTimer.delay = 1000 / fps;
             this.videoPlayer.updateFrameRate();
-        }
-
-        /**
-         * 引数で指定された文字列とコマンドを使ってニコニコ動画へコメントをポストします。
-         * @param comment
-         * @param command
-         *
-         */
-        public function postMessage(comment: String, command: String): void {
-
-            logManager.addLog("***コメント投稿開始***");
-
-            var videoID: String = null;
-            if (isStreamingPlay) {
-                //ストリーミング再生時はsorceにvideoIDが入っていないのでPlayerのタイトルから取得
-                videoID = PathMaker.getVideoID(videoPlayer.title);
-            } else {
-                videoID = PathMaker.getVideoID(source);
-            }
-
-            if (videoID != null) {
-
-                logManager.addLog("コメント投稿の準備中...");
-
-                logManager.addLog("\tcomment:" + comment);
-                logManager.addLog("\tcommand:" + command);
-                logManager.addLog("\tvpos:" + commentTimerVpos / 10);
-
-                var commentPost: CommentPost = new CommentPost();
-                commentPost.addEventListener(
-                    HTTPStatusEvent.HTTP_RESPONSE_STATUS,
-                    function (event: HTTPStatusEvent): void {
-                        logManager.addLog("\t\t" + event);
-                    }
-                );
-                commentPost.addEventListener(CommentPost.COMMENT_POST_FAIL, function (event: IOErrorEvent): void {
-                    trace(event);
-                    logManager.addLog("\t" + CommentPost.COMMENT_POST_FAIL + ":" + event);
-                    logManager.addLog("コメント投稿失敗");
-                    Alert.show("コメントの投稿に失敗\n\n" + event.text, Message.M_ERROR, 4, this.videoPlayer);
-                    commentPost.close();
-                });
-                commentPost.addEventListener(CommentPost.COMMENT_POST_SUCCESS, function (event: Event): void {
-                    var post: XML = commentPost.getPostComment();
-                    if (!isStreamingPlay) {
-                        var path: String = PathMaker.createNomalCommentPathByVideoPath(source);
-                        (new FileIO(logManager)).addComment(path, post);
-                    }
-                    trace("コメントを投稿:" + videoID);
-                    logManager.addLog("\t" + CommentPost.COMMENT_POST_SUCCESS + ":" + event);
-                    logManager.addLog("コメントを投稿(対象動画:" + videoID + ")");
-                    logManager.addLog("***コメント投稿完了***");
-                    commentPost.close();
-                });
-
-                // コメントを投稿
-                commentPost.postCommentWithLogin(UserManager.instance.user,
-                                                 UserManager.instance.password,
-                                                 videoID,
-                                                 comment,
-                                                 command,
-                                                 commentTimerVpos / 10,
-                                                 videoInfoView.is184
-                );
-
-                // とりあえずコメントを表示。通し番号をマイナスにして正規のコメントと区別する。
-                commentManager.addPostComment(new NNDDComment(
-                    commentTimerVpos / 10,
-                    comment,
-                    command,
-                    "",
-                    -1,
-                    "",
-                    -1,
-                    true
-                ), this._isLengthwisePreferred);
-
-            } else {
-                //動画IDがついてないのでPostできなかった
-                logManager.addLog("ファイル名に動画IDが無いためコメントを投稿できませんでした。");
-                logManager.addLog("***コメント投稿失敗***");
-            }
-
         }
 
         /**
@@ -4613,10 +4449,6 @@ package org.mineap.nndd.player {
                             getProgressListener
                         );
                         nnddDownloaderForStreaming.addEventListener(
-                            NNDDDownloader.ICHIBA_INFO_GET_START,
-                            getProgressListener
-                        );
-                        nnddDownloaderForStreaming.addEventListener(
                             NNDDDownloader.LOGIN_START,
                             getProgressListener
                         );
@@ -4659,10 +4491,6 @@ package org.mineap.nndd.player {
                         );
                         nnddDownloaderForStreaming.addEventListener(
                             NNDDDownloader.GETFLV_API_ACCESS_SUCCESS,
-                            getProgressListener
-                        );
-                        nnddDownloaderForStreaming.addEventListener(
-                            NNDDDownloader.ICHIBA_INFO_GET_SUCCESS,
                             getProgressListener
                         );
                         nnddDownloaderForStreaming.addEventListener(
@@ -4712,10 +4540,6 @@ package org.mineap.nndd.player {
                         );
                         nnddDownloaderForStreaming.addEventListener(
                             NNDDDownloader.GETFLV_API_ACCESS_FAIL,
-                            getFailListener
-                        );
-                        nnddDownloaderForStreaming.addEventListener(
-                            NNDDDownloader.ICHIBA_INFO_GET_FAIL,
                             getFailListener
                         );
                         nnddDownloaderForStreaming.addEventListener(
@@ -4811,8 +4635,6 @@ package org.mineap.nndd.player {
                 status = "サムネイル情報取得失敗";
             } else if (event.type == NNDDDownloader.THUMB_IMG_GET_FAIL) {
                 status = "サムネイル画像取得失敗";
-            } else if (event.type == NNDDDownloader.ICHIBA_INFO_GET_FAIL) {
-                status = "市場情報取得失敗";
             } else if (event.type == NNDDDownloader.CREATE_DMC_SESSION_FAIL) {
                 status = "DMCサーバ接続失敗";
             } else if (event.type == NNDDDownloader.VIDEO_GET_FAIL) {
@@ -4848,8 +4670,6 @@ package org.mineap.nndd.player {
                 status = "成功";
             } else if (event.type == NNDDDownloader.THUMB_IMG_GET_SUCCESS) {
                 status = "成功";
-            } else if (event.type == NNDDDownloader.ICHIBA_INFO_GET_SUCCESS) {
-                status = "成功";
             } else if (event.type == NNDDDownloader.CREATE_DMC_SESSION_SUCCESS) {
                 status = "成功";
             } else if (event.type == NNDDDownloader.VIDEO_GET_SUCCESS) {
@@ -4872,8 +4692,6 @@ package org.mineap.nndd.player {
                 status = "サムネイル情報を取得しています...";
             } else if (event.type == NNDDDownloader.THUMB_IMG_GET_START) {
                 status = "サムネイル画像を取得しています...";
-            } else if (event.type == NNDDDownloader.ICHIBA_INFO_GET_START) {
-                status = "市場情報を取得しています...";
             } else if (event.type == NNDDDownloader.CREATE_DMC_SESSION_START) {
                 status = "DMCサーバに接続しています...";
             } else if (event.type == NNDDDownloader.VIDEO_GET_START) {
@@ -4958,7 +4776,6 @@ package org.mineap.nndd.player {
                 NNDDDownloader.GETFLV_API_ACCESS_FAIL,
                 getFailListener
             );
-            (event.target as NNDDDownloader).removeEventListener(NNDDDownloader.ICHIBA_INFO_GET_FAIL, getFailListener);
             (event.target as NNDDDownloader).removeEventListener(NNDDDownloader.LOGIN_FAIL, getFailListener);
             (event.target as NNDDDownloader).removeEventListener(NNDDDownloader.NICOWARI_GET_FAIL, getFailListener);
             (event.target as NNDDDownloader).removeEventListener(
@@ -4980,10 +4797,6 @@ package org.mineap.nndd.player {
             );
             (event.target as NNDDDownloader).removeEventListener(
                 NNDDDownloader.GETFLV_API_ACCESS_SUCCESS,
-                getProgressListener
-            );
-            (event.target as NNDDDownloader).removeEventListener(
-                NNDDDownloader.ICHIBA_INFO_GET_SUCCESS,
                 getProgressListener
             );
             (event.target as NNDDDownloader).removeEventListener(NNDDDownloader.LOGIN_SUCCESS, getProgressListener);
@@ -5018,10 +4831,6 @@ package org.mineap.nndd.player {
             (event.target as NNDDDownloader).removeEventListener(NNDDDownloader.COMMENT_GET_START, getProgressListener);
             (event.target as NNDDDownloader).removeEventListener(
                 NNDDDownloader.GETFLV_API_ACCESS_START,
-                getProgressListener
-            );
-            (event.target as NNDDDownloader).removeEventListener(
-                NNDDDownloader.ICHIBA_INFO_GET_START,
                 getProgressListener
             );
             (event.target as NNDDDownloader).removeEventListener(NNDDDownloader.LOGIN_START, getProgressListener);

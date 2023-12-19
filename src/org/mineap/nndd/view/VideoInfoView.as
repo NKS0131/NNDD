@@ -7,7 +7,6 @@ import flash.events.TextEvent;
 import flash.events.TimerEvent;
 import flash.geom.Rectangle;
 import flash.net.URLRequest;
-import flash.net.navigateToURL;
 import flash.ui.Keyboard;
 import flash.utils.Timer;
 
@@ -124,10 +123,6 @@ public var localTagProvider: Array = new Array();
 [Bindable]
 public var nicoTagProvider: Array = new Array();
 [Bindable]
-public var ichibaLocalProvider: ArrayCollection = new ArrayCollection();
-[Bindable]
-public var ichibaNicoProvider: ArrayCollection = new ArrayCollection();
-[Bindable]
 public var ngListProvider: ArrayCollection = new ArrayCollection();
 [Bindable]
 public var owner_text_nico: String = "";
@@ -198,8 +193,6 @@ public function init(playerController: PlayerController, videoPlayer: VideoPlaye
 public function resetInfo(): void {
     localTagProvider = new Array();
     nicoTagProvider = new Array();
-    ichibaLocalProvider = new ArrayCollection();
-    ichibaNicoProvider = new ArrayCollection();
 
     owner_text_local = "";
     owner_text_nico = "";
@@ -722,14 +715,6 @@ private function commentListDoubleClicked(event: ListEvent): void {
         this.playerController.seek(min * 60 + sec);
     } else {
         this.playerController.seek((min * 60 + sec) * playerController.swfFrameRate);
-    }
-}
-
-private function ichibaDataGridDoubleClicked(event: ListEvent): void {
-    trace((event.currentTarget as DataGrid).dataProvider[event.rowIndex].col_link);
-    var url: String = (event.currentTarget as DataGrid).dataProvider[event.rowIndex].col_link;
-    if (url != null) {
-        navigateToURL(new URLRequest(url));
     }
 }
 
