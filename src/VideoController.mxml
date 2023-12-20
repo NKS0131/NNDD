@@ -5,7 +5,7 @@
 
 <mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
            xmlns:ns1="*"
-           width="470" height="60" minWidth="200" minHeight="50" backgroundAlpha="0.8"
+           width="470" height="33" backgroundAlpha="0.8"
            backgroundColor="#FFFFFF" borderStyle="solid" borderVisible="true"
            contentBackgroundColor="#FFFFFF" cornerRadius="5" rollOut="rollOut(event)"
            rollOver="rollOver(event)" xmlns:s="library://ns.adobe.com/flex/spark">
@@ -17,7 +17,7 @@
     <mx:Button id="button_stop" left="38" top="5" width="30" click="stop()" focusEnabled="false"
                icon="@Embed(source='/player/NNDDicons_stop_20x20.png')" toolTip="最初に戻る"/>
 
-    <s:HGroup left="76" right="5" top="5" height="22" verticalAlign="middle">
+    <s:HGroup left="76" right="55" top="5" height="22" verticalAlign="middle">
         <mx:HSlider id="slider_timeline" width="100%" allowTrackClick="true"
                     change="sliderTimelineChanged(event)"
                     dataTipFormatFunction="myDataTipFormatFunction" focusEnabled="false"
@@ -29,7 +29,7 @@
 
     </s:HGroup>
 
-    <mx:HSlider id="slider_volume" right="3" top="34" width="47" height="14"
+    <mx:HSlider id="slider_volume" right="3" top="5" width="47" height="14"
                 change="sliderVolumeChanged(event)" focusEnabled="false" liveDragging="true"
                 maximum="1" minimum="0" mouseFocusEnabled="true" mouseWheel="mouseWheel(event)"
                 snapInterval="0.01" value="0.5"/>

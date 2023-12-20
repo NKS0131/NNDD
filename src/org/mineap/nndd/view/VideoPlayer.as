@@ -617,12 +617,12 @@ public function showUnderController(isShow: Boolean, isChangeWindowSize: Boolean
     if (!isShow) { //見せない
         (this.canvas_under as Canvas).height = 0;
         if (isChangeWindowSize) {
-            this.nativeWindow.height = this.nativeWindow.height - 60;
+            this.nativeWindow.height = this.nativeWindow.height - 33;
         }
     } else { //見せる
-        (this.canvas_under as Canvas).height = 60;
+        (this.canvas_under as Canvas).height = 33;
         if (isChangeWindowSize) {
-            this.nativeWindow.height = this.nativeWindow.height + 60;
+            this.nativeWindow.height = this.nativeWindow.height + 33;
         }
     }
 
