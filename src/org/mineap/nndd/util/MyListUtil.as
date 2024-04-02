@@ -112,5 +112,22 @@ package org.mineap.nndd.util {
 
             return null;
         }
+
+        public static function getSeriesId(url: String): String {
+            var matches: Array;
+
+            // Case: series/[SeriesID]
+            if (matches = url.match(/^(?i:series)\/([1-9][0-9]*)$/)) {
+                return matches[1];
+            }
+
+            // Case: https://www.nicovideo.jp/user/[UserID]/series/[SeriesID]
+            //       https://www.nicovideo.jp/series/[SeriesID]
+            if (matches = url.match(/^https?:\/\/www\.nicovideo\.jp\/(?:user\/[1-9][0-9]*\/)?series\/([1-9][0-9]*)$/)) {
+                return matches[1];
+            }
+
+            return null;
+        }
     }
 }
