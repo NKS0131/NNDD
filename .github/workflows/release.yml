@@ -11,14 +11,14 @@ jobs:
     env:
       AIR_HOME: /opt/airsdk
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         id: apache_flex_cache
         with:
           path: apache-flex-sdk-4.16.1-bin.tar.gz
@@ -26,7 +26,7 @@ jobs:
       - if: steps.apache_flex_cache.outputs.cache-hit != 'true'
         run: curl https://dlcdn.apache.org/flex/4.16.1/binaries/apache-flex-sdk-4.16.1-bin.tar.gz -O
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         id: adobe_airsdk_cache
         with:
           path: AdobeAIRSDK.zip
@@ -35,7 +35,7 @@ jobs:
       - if: steps.adobe_airsdk_cache.outputs.cache-hit != 'true'
         run: curl http://fpdownload.macromedia.com/air/win/download/32.0/AdobeAIRSDK.zip -O
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         id: flex_osmf20_cache
         with:
           path: OSMF2_0.swc
@@ -63,7 +63,7 @@ jobs:
           $AIR_HOME/bin/amxmlc NNDD.mxml -compiler.include-libraries ../libs/* -warnings=false
           java -jar $AIR_HOME/lib/adt.jar -package -storetype pkcs12 -keystore ../nndd-5ch_certificate.pfx -storepass $certificate_password NNDD.air NNDD-app.xml NNDD.swf icon32.png icon128.png icon48.png icon16.png CategoryList.json
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: air
           path: src/NNDD.air
@@ -83,11 +83,11 @@ jobs:
     needs: build-air
     runs-on: windows-latest
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: air
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         id: adobe_airsdk_cache
         with:
           path: AdobeAIRSDK.zip
@@ -113,11 +113,11 @@ jobs:
     needs: build-air
     runs-on: macos-latest
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: air
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         id: adobe_airsdk_cache
         with:
           path: AdobeAIRSDK.dmg
