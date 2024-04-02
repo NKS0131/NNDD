@@ -699,7 +699,12 @@ private function keyListener(event: KeyboardEvent): void {
             seekValue = 0;
         });
         seekTimer.start();
-        this.seekValue -= this.videoInfoView.secondsToSeekOnKeyboard;
+        if (this.seekValue < this.videoInfoView.secondsToSeekOnKeyboard) {
+            this.seekValue = 0;
+        }
+        else {
+            this.seekValue -= this.videoInfoView.secondsToSeekOnKeyboard;
+        }
     } else if (event.keyCode == Keyboard.RIGHT) {
         //右キー。進む。
         if (event.target as UITextField) {
