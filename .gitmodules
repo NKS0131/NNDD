@@ -1,3 +1,4 @@
 [submodule "nicovideo4as"]
 	path = nicovideo4as
 	url = https://github.com/NKS0131/nicovideo4as
+	branch = master
