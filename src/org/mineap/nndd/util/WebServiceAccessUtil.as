@@ -68,8 +68,8 @@ package org.mineap.nndd.util {
             var url: String = null;
 
             if (videoId != null) {
-                url = "http://www.nicovideo.jp/watch/" + videoId;
-                navigateToURL(new URLRequest("http://b.hatena.ne.jp/add?mode=confirm&is_bm=1&title=" +
+                url = "https://www.nicovideo.jp/watch/" + videoId;
+                navigateToURL(new URLRequest("https://b.hatena.ne.jp/add?mode=confirm&is_bm=1&title=" +
                                              encodeURIComponent(title) + "&url=" + url));
                 LogManager.instance.addLog("はてなダイアリーに登録:" + title + ":" + url);
             }
@@ -86,7 +86,7 @@ package org.mineap.nndd.util {
             var url: String = "";
 
             if (videoId != null) {
-                url = "http://nico.ms/" + videoId + " #nicovideo #nndd #" + videoId;
+                url = "https://nico.ms/" + videoId + " #nicovideo #nndd #" + videoId;
 
                 var index: int = title.indexOf("- [");
                 if (index > 0) {

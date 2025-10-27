@@ -799,8 +799,8 @@ private function copyUrl(event: ContextMenuEvent): void {
     var videoId: String = getVideoIdDataGridContextEvent(event);
 
     if (videoId != null && videoId) {
-        var url: String = "http://www.nicovideo.jp/watch/" + videoId;
-        if (url.indexOf("http://") != -1) {
+        var url: String = "https://www.nicovideo.jp/watch/" + videoId;
+        if (url.indexOf("http://") != -1 || url.indexOf("https://") != -1) {
             Clipboard.generalClipboard.setData(ClipboardFormats.TEXT_FORMAT, url);
         }
     }
@@ -1433,7 +1433,7 @@ private function addMyList(myListId: String, video: NNDDVideo): void {
     });
 
     this._myListAdder.addMyList(
-        "http://www.nicovideo.jp/watch/" + PathMaker.getVideoID(video.getDecodeUrl()),
+        "https://www.nicovideo.jp/watch/" + PathMaker.getVideoID(video.getDecodeUrl()),
         myListId,
         UserManager.instance.user,
         UserManager.instance.password
@@ -1477,7 +1477,7 @@ private function tagListItemHandler(event: ContextMenuEvent): void {
             if (label == Message.L_TAB_LIST_MENU_ITEM_LABEL_SEARCH) {
                 search(new SearchItem(tag, SearchSortString.convertSortTypeFromIndex(4), NNDDSearchType.TAG, tag));
             } else if (label == Message.L_TAB_LIST_MENU_ITEM_LABEL_JUMP_DIC) {
-                navigateToURL(new URLRequest("http://dic.nicovideo.jp/a/" + encodeURIComponent(tag)));
+                navigateToURL(new URLRequest("https://dic.nicovideo.jp/a/" + encodeURIComponent(tag)));
             } else if (label == Message.L_TAB_LIST_MENU_ITEM_LABEL_HIDE_TAG) {
                 ngTagManager.addTags(tags);
             } else if (label == Message.L_TAB_LIST_MENU_ITEM_LABEL_SHOW_TAG) {
@@ -1632,7 +1632,7 @@ private function invokeEventHandler(event: InvokeEvent): void {
                 var url: String = event.arguments[1];
                 var videoId: String = PathMaker.getVideoID(url);
                 if (videoId != null) {
-                    url = "http://www.nicovideo.jp/watch/" + videoId;
+                    url = "https://www.nicovideo.jp/watch/" + videoId;
                 }
 
                 if (url.match(/https?:\/\/www\.nicovideo\.jp\/watch\//)) {
@@ -3255,7 +3255,7 @@ private function videoStreamingPlayStart(url: String): void {
 
         var videoId: String = PathMaker.getVideoID(url);
         if (videoId != null) {
-            mUrl = "http://www.nicovideo.jp/watch/" + videoId;
+            mUrl = "https://www.nicovideo.jp/watch/" + videoId;
         }
 
         if (mUrl != null && mUrl.match(/https?:\/\/www\.nicovideo\.jp\/watch\//)) {
@@ -4035,7 +4035,7 @@ private function newCommentDownloadButtonClicked(isCommentOnly: Boolean = false)
                     if (renewDownloadManager == null) {
 //						trace(videoID);
                         fileName = PathMaker.getVideoName(filePath);
-                        var videoURL: String = "http://www.nicovideo.jp/watch/" + videoID;
+                        var videoURL: String = "https://www.nicovideo.jp/watch/" + videoID;
                         var index: int = this.dataGrid_downloaded.selectedIndex;
 
                         if ((filePath.substring(filePath.indexOf(this.libraryManager.libraryDir.url) +
@@ -6275,7 +6275,7 @@ private function addDLList(url: String): void {
 
     var videoId: String = PathMaker.getVideoID(url);
     if (videoId != null) {
-        url = "http://www.nicovideo.jp/watch/" + videoId;
+        url = "https://www.nicovideo.jp/watch/" + videoId;
         var video: NNDDVideo = new NNDDVideo(url, "-");
         if (!downloadManager.add(video, auto)) {
             showCannotAddDlList();
@@ -6904,7 +6904,7 @@ private function myListRenewButtonClicked(event: Event, addMode: Boolean = false
 //								(dataGrid_myList.dataProvider as ArrayCollection).setItemAt(target, index);
 //							}
 //						});
-//						loader.load(new URLRequest("http://ext.nicovideo.jp/api/getthumbinfo/" + videoId));
+//						loader.load(new URLRequest("https://ext.nicovideo.jp/api/getthumbinfo/" + videoId));
 //
 //					}
 
@@ -7756,8 +7756,8 @@ public function showMyListOnNico(event: Event): void {
     if (id.indexOf("channel") != -1) {
         id = MyListUtil.getChannelId(id);
         if (id != null) {
-            navigateToURL(new URLRequest("http://ch.nicovideo.jp/channel/" + id));
-            logManager.addLog("チャンネルをブラウザで表示:" + "http://ch.nicovideo.jp/channel/" + id);
+            navigateToURL(new URLRequest("https://ch.nicovideo.jp/channel/" + id));
+            logManager.addLog("チャンネルをブラウザで表示:" + "https://ch.nicovideo.jp/channel/" + id);
         }
     } else if (id.indexOf("community") != -1) {
         id = MyListUtil.getCommunityId(id);
@@ -7768,13 +7768,13 @@ public function showMyListOnNico(event: Event): void {
     } else if (id.indexOf("user") != -1) {
         id = MyListUtil.getUserUploadVideoListId(id);
         if (id != null) {
-            navigateToURL(new URLRequest("http://www.nicovideo.jp/user/" + id + "/video"));
+            navigateToURL(new URLRequest("https://www.nicovideo.jp/user/" + id + "/video"));
         }
     } else {	// MyListだと推測
         id = MyListUtil.getMyListId(id);
         if (id != null) {
-            navigateToURL(new URLRequest("http://www.nicovideo.jp/mylist/" + id));
-            logManager.addLog("マイリストをブラウザで表示:" + "http://www.nicovideo.jp/mylist/" + id);
+            navigateToURL(new URLRequest("https://www.nicovideo.jp/mylist/" + id));
+            logManager.addLog("マイリストをブラウザで表示:" + "https://www.nicovideo.jp/mylist/" + id);
         }
     }
 }
@@ -8265,7 +8265,7 @@ protected function addPlayListContextMenuItemClicked(event: ContextMenuEvent): v
             if (column_path != null) {
                 path = object[column_path];
             } else {
-                path = "http://www.nicovide.jp/watch/" + path;
+                path = "https://www.nicovideo.jp/watch/" + path;
             }
 
             videos.push(new NNDDVideo(path, videoName));

@@ -179,41 +179,41 @@ package org.mineap.nndd {
 
         public static const LOGIN_URL: String = "https://secure.nicovideo.jp/secure/login?site=niconico";
         public static const LOGIN_FAIL_URL: String = "https://secure.nicovideo.jp/secure/login_form?message=cant_login";
-        public static const TOP_PAGE_URL: String = "http://www.nicovideo.jp/";
-        public static const NICOCHART_URL: String = "http://www.nicochart.jp/ranking/";
-        public static const NICO_WATCH_VIDEO_URL: String = "http://www.nicovideo.jp/watch/";
+        public static const TOP_PAGE_URL: String = "https://www.nicovideo.jp/";
+        public static const NICOCHART_URL: String = "https://www.nicochart.jp/ranking/";
+        public static const NICO_WATCH_VIDEO_URL: String = "https://www.nicovideo.jp/watch/";
 
         public static const NICO_RANKING_URLS: Array = new Array(new Array(
-            "http://www.nicovideo.jp/ranking/mylist/daily/",
-            "http://www.nicovideo.jp/ranking/view/daily/",
-            "http://www.nicovideo.jp/ranking/res/daily/",
-            "http://www.nicovideo.jp/ranking/fav/daily/"
+            "https://www.nicovideo.jp/ranking/mylist/daily/",
+            "https://www.nicovideo.jp/ranking/view/daily/",
+            "https://www.nicovideo.jp/ranking/res/daily/",
+            "https://www.nicovideo.jp/ranking/fav/daily/"
                                                                  ),
                                                                  new Array(
-                                                                     "http://www.nicovideo.jp/ranking/mylist/weekly/",
-                                                                     "http://www.nicovideo.jp/ranking/view/weekly/",
-                                                                     "http://www.nicovideo.jp/ranking/res/weekly/",
-                                                                     "http://www.nicovideo.jp/ranking/fav/weekly/"
+                                                                     "https://www.nicovideo.jp/ranking/mylist/weekly/",
+                                                                     "https://www.nicovideo.jp/ranking/view/weekly/",
+                                                                     "https://www.nicovideo.jp/ranking/res/weekly/",
+                                                                     "https://www.nicovideo.jp/ranking/fav/weekly/"
                                                                  ),
                                                                  new Array(
-                                                                     "http://www.nicovideo.jp/ranking/mylist/monthly/",
-                                                                     "http://www.nicovideo.jp/ranking/view/monthly/",
-                                                                     "http://www.nicovideo.jp/ranking/res/monthly/",
-                                                                     "http://www.nicovideo.jp/ranking/fav/monthly/"
+                                                                     "https://www.nicovideo.jp/ranking/mylist/monthly/",
+                                                                     "https://www.nicovideo.jp/ranking/view/monthly/",
+                                                                     "https://www.nicovideo.jp/ranking/res/monthly/",
+                                                                     "https://www.nicovideo.jp/ranking/fav/monthly/"
                                                                  ),
                                                                  new Array(
-                                                                     "http://www.nicovideo.jp/ranking/mylist/hourly/",
-                                                                     "http://www.nicovideo.jp/ranking/view/hourly/",
-                                                                     "http://www.nicovideo.jp/ranking/res/hourly/",
-                                                                     "http://www.nicovideo.jp/ranking/fav/hourly/"
+                                                                     "https://www.nicovideo.jp/ranking/mylist/hourly/",
+                                                                     "https://www.nicovideo.jp/ranking/view/hourly/",
+                                                                     "https://www.nicovideo.jp/ranking/res/hourly/",
+                                                                     "https://www.nicovideo.jp/ranking/fav/hourly/"
                                                                  ),
                                                                  new Array(
-                                                                     "http://www.nicovideo.jp/ranking/mylist/total/",
-                                                                     "http://www.nicovideo.jp/ranking/view/total/all/",
-                                                                     "http://www.nicovideo.jp/ranking/res/total/",
-                                                                     "http://www.nicovideo.jp/ranking/fav/total/"
+                                                                     "https://www.nicovideo.jp/ranking/mylist/total/",
+                                                                     "https://www.nicovideo.jp/ranking/view/total/all/",
+                                                                     "https://www.nicovideo.jp/ranking/res/total/",
+                                                                     "https://www.nicovideo.jp/ranking/fav/total/"
                                                                  ),
-                                                                 new Array("http://www.nicovideo.jp/newarrival/")
+                                                                 new Array("https://www.nicovideo.jp/newarrival/")
         );
 
         public static const SEARCH_UP_NEW: int = 0;
@@ -263,11 +263,11 @@ package org.mineap.nndd {
         );
 
         public static const NICO_SEARCH_TYPE_URL: Array = new Array(
-            "http://www.nicovideo.jp/search/",
-            "http://www.nicovideo.jp/tag/"//, "http://www.nicovideo.jp/related_tag/"
+            "https://www.nicovideo.jp/search/",
+            "https://www.nicovideo.jp/tag/"//, "https://www.nicovideo.jp/related_tag/"
         );
 
-        public static const NICO_MY_PAGE_URL: String = "http://www.nicovideo.jp/my";
+        public static const NICO_MY_PAGE_URL: String = "https://www.nicovideo.jp/my";
 
         private var isCancel: Boolean = false;
 
@@ -1017,7 +1017,7 @@ package org.mineap.nndd {
             var max: int = 100;
 
             var pattern: RegExp = new RegExp(
-                "<li class=\"thumbnail\"><a href=\"http://www.nicovideo.jp/watch/.*\">",
+                "<li class=\"thumbnail\"><a href=\"https://www.nicovideo.jp/watch/.*\">",
                 "ig"
             );
 
@@ -1188,7 +1188,7 @@ package org.mineap.nndd {
                     var url: String = url_videoIdList[i];
 
                     var thumbImage: String = PathMaker.getThumbImgUrl(PathMaker.getVideoID(url));
-                    urlList[i] = new Array("http://www.nicovideo.jp/" + url, thumbImage);
+                    urlList[i] = new Array("https://www.nicovideo.jp/" + url, thumbImage);
 
                     errorString = "登録処理:" + url;
                     var index: int = i + 1;
@@ -1668,7 +1668,7 @@ package org.mineap.nndd {
 
             //FLVのURLを取得する為にニコニコ動画のAPIにアクセスする
             var getAPIResult: URLRequest;
-            getAPIResult = new URLRequest("http://flapi.nicovideo.jp/api/getflv?v=" + videoID);
+            getAPIResult = new URLRequest("https://flapi.nicovideo.jp/api/getflv?v=" + videoID);
             getAPIResult.method = "GET";
 
             if (type == VIDEO_DOWNLOAD) {
@@ -2481,7 +2481,7 @@ package org.mineap.nndd {
          */
         private function getPostKey(res: String): void {
             //<?xml version="1.0" encoding="UTF-8"?><packet><thread click_revision="925" last_res="84981" resultcode="0" revision="1" server_time="1232873115" thread="1214840698" ticket="0x1a274db8"/><view_counter id="sm3821007" mylist="17558" video="768016"/><chat date="1232870058" no="84981" thread="1214840698" user_id="2729410" vpos="16492">０</chat><num_click count="30" no="81372" thread="1214840698"/></packet>
-            //http://www.nicovideo.jp/api/getpostkey?thread=id&block_no=xxx
+            //https://www.nicovideo.jp/api/getpostkey?thread=id&block_no=xxx
 
             var xml: XML = new XML(res);
             var xmlList: XMLList = xml.thread;
@@ -2498,7 +2498,7 @@ package org.mineap.nndd {
                 var postKey: String = (event.target.data as String).substring(event.target.data.indexOf("=") + 1);
                 postComment(postKey, userID, ticket, mail, String(vpos), threadID, isPremium);
             });
-            var url: String = "http://flapi.nicovideo.jp/api/getpostkey/?block_no=" + block_no + "&thread=" + threadID +
+            var url: String = "https://flapi.nicovideo.jp/api/getpostkey/?block_no=" + block_no + "&thread=" + threadID +
                               "&yugi=";
             trace(url);
             loader.load(new URLRequest(url));
@@ -2599,7 +2599,7 @@ package org.mineap.nndd {
          *
          */
         private function getThumbInfo(videoID: String, index: int, isSave: Boolean): void {
-            //http://www.nicovideo.jp/api/getthumbinfo/動画ID
+            //https://www.nicovideo.jp/api/getthumbinfo/動画ID
             var loader: URLLoader;
             loader = new URLLoader();
             loader.addEventListener(IOErrorEvent.IO_ERROR, function (event: Event): void {
@@ -2743,7 +2743,7 @@ package org.mineap.nndd {
             });
             loader.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
 
-            loader.load(new URLRequest("http://ext.nicovideo.jp/api/getthumbinfo/" + videoID));
+            loader.load(new URLRequest("https://ext.nicovideo.jp/api/getthumbinfo/" + videoID));
         }
 
         /* サムネイル情報取得ここまで -------------------------------------------- */

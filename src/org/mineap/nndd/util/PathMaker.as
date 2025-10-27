@@ -509,7 +509,7 @@ package org.mineap.nndd.util {
         /**
          * サムネイル画像のURLを返します。
          *
-         * http://tn-skr1.smilevideo.jp/smile?i=7983504
+         * https://tn-skr1.smilevideo.jp/smile?i=7983504
          * @param videoId
          */
         public static function getThumbImgUrl(videoId: String): String {
@@ -525,7 +525,7 @@ package org.mineap.nndd.util {
             var num: Number = Math.random();
             num = (num * 10) % 3 + 1;
 
-            var thumbUrl: String = "http://tn-skr" + int(num) + ".smilevideo.jp/smile?i=" + videoId;
+            var thumbUrl: String = "https://tn-skr" + int(num) + ".smilevideo.jp/smile?i=" + videoId;
 
 //			trace(thumbUrl);
 

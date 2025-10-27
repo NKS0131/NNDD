@@ -147,7 +147,7 @@ package org.mineap.nndd.download {
 
             var item: DownloadQueueItem = new DownloadQueueItem(video, new Date());
 
-            var url: String = "http://www.nicovideo.jp/watch/" + PathMaker.getVideoID(video.getDecodeUrl());
+            var url: String = "https://www.nicovideo.jp/watch/" + PathMaker.getVideoID(video.getDecodeUrl());
 
             downloadProvider.addItem({
                                          col_preview: video.thumbUrl,

@@ -25,7 +25,7 @@ package org.mineap.nndd.util {
          */
         public function get htmlTitle(): String {
             if (this.status == "ok") {
-                return "<a href=\"http://www.nicovideo.jp/watch/" + videoId + "\"><u><font color=\"#0000ff\">" + title +
+                return "<a href=\"https://www.nicovideo.jp/watch/" + videoId + "\"><u><font color=\"#0000ff\">" + title +
                        "</font></u></a>";
             } else {
                 return "(削除されています)";

@@ -150,7 +150,7 @@ package org.mineap.nndd.player {
                 _myListAddr = null;
             });
 
-            this._myListAddr.addMyList("http://www.nicovideo.jp/watch/" + videoId, myListId, mailAddress, password);
+            this._myListAddr.addMyList("https://www.nicovideo.jp/watch/" + videoId, myListId, mailAddress, password);
         }
 
         /**
