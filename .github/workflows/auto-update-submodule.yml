@@ -1,0 +1,30 @@
+name: auto-update-submodule
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs daily at UTC 00:00 (adjust as needed)
+  workflow_dispatch:
+
+jobs:
+  update-submodules:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          persist-credentials: true
+
+      - name: Update submodules to latest on tracked branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git submodule update --remote --init --recursive
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "chore: update submodules to latest"
+            git push
+          else
+            echo "No changes"
+          fi
