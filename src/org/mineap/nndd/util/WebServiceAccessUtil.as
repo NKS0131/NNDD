@@ -69,7 +69,7 @@ package org.mineap.nndd.util {
 
             if (videoId != null) {
                 url = "https://www.nicovideo.jp/watch/" + videoId;
-                navigateToURL(new URLRequest("http://b.hatena.ne.jp/add?mode=confirm&is_bm=1&title=" +
+                navigateToURL(new URLRequest("https://b.hatena.ne.jp/add?mode=confirm&is_bm=1&title=" +
                                              encodeURIComponent(title) + "&url=" + url));
                 LogManager.instance.addLog("はてなダイアリーに登録:" + title + ":" + url);
             }

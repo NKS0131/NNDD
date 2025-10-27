@@ -180,7 +180,7 @@ package org.mineap.nndd {
         public static const LOGIN_URL: String = "https://secure.nicovideo.jp/secure/login?site=niconico";
         public static const LOGIN_FAIL_URL: String = "https://secure.nicovideo.jp/secure/login_form?message=cant_login";
         public static const TOP_PAGE_URL: String = "https://www.nicovideo.jp/";
-        public static const NICOCHART_URL: String = "http://www.nicochart.jp/ranking/";
+        public static const NICOCHART_URL: String = "https://www.nicochart.jp/ranking/";
         public static const NICO_WATCH_VIDEO_URL: String = "https://www.nicovideo.jp/watch/";
 
         public static const NICO_RANKING_URLS: Array = new Array(new Array(

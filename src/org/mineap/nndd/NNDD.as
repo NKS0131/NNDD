@@ -8265,7 +8265,7 @@ protected function addPlayListContextMenuItemClicked(event: ContextMenuEvent): v
             if (column_path != null) {
                 path = object[column_path];
             } else {
-                path = "http://www.nicovide.jp/watch/" + path;
+                path = "https://www.nicovideo.jp/watch/" + path;
             }
 
             videos.push(new NNDDVideo(path, videoName));
