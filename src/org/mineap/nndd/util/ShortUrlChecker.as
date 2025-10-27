@@ -12,7 +12,7 @@ package org.mineap.nndd.util {
 
         private var _url: String = null;
 
-        public var shortUrls: Vector.<String> = Vector.<String>(["http://nico.ms", "https://nico.ms", "http://bit.ly", "http://t.co"]);
+        public var shortUrls: Vector.<String> = Vector.<String>(["http://nico.ms", "https://nico.ms", "http://bit.ly", "https://bit.ly", "http://t.co", "https://t.co"]);
 
         public function ShortUrlChecker(urlRequest: URLRequest = null) {
             super(urlRequest);
