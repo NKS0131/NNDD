@@ -31,7 +31,7 @@
 
                     var videoId: String = PathMaker.getVideoID(url);
                     if (videoId != null) {
-                        url = "http://www.nicovideo.jp/watch/" + videoId;
+                        url = "https://www.nicovideo.jp/watch/" + videoId;
                     } else {
                     }
 

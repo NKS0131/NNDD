@@ -51,12 +51,12 @@ package org.mineap.nndd.myList {
                 <rss>
                  <item>
                   <title>東方VocalSelection “千歳の夢を遠く過ぎても” [原曲 プレインエイジア]</title>
-                  <link>http://www.nicovideo.jp/watch/sm4508441</link>
+                  <link>https://www.nicovideo.jp/watch/sm4508441</link>
                   <guid isPermaLink="false">tag:nicovideo.jp,2008-09-03:/watch/1220438142</guid>
                   <pubDate>Fri, 24 Apr 2009 22:51:06 +0900</pubDate>
                   <description><![CDATA[
                   <p class="nico-memo"># tr.42</p>
-                  <p class="nico-thumbnail"><img alt="東方VocalSelection “千歳の夢を遠く過ぎても” [原曲 プレインエイジア]" src="http://tn-skr2.smilevideo.jp/smile?i=4508441" width="94" height="70" border="0"/></p>
+                  <p class="nico-thumbnail"><img alt="東方VocalSelection “千歳の夢を遠く過ぎても” [原曲 プレインエイジア]" src="https://tn-skr2.smilevideo.jp/smile?i=4508441" width="94" height="70" border="0"/></p>
                   <p class="nico-description">夜が明けたら、君のところへ――　　　Circle：IOSYS　　　Album：東方想幽森雛　　　Vocal：あさ��　　　Original：プレインエイジア　　　Blazing：mylist/7121837　　　Twilight：mylist/8446649　　　最後まで再生すると次の動画にジャンプします　　　■想幽森雛収録のRemixシリーズはもっと評価されるべきだと思います。</p>
                   <p class="nico-info"><small><strong class="nico-info-length">5:39</strong>｜<strong class="nico-info-date">2008年09月03日 19：35：42</strong> 投稿</small></p>
                   ]]></description>

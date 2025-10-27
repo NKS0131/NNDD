@@ -520,7 +520,7 @@ package org.mineap.nndd.player {
                         logManager.addLog(Message.FAIL_PLAY_EACH_COMMENT_DOWNLOAD + "(ログインしていません)");
                     }
 
-                    var videoUrl: String = "http://www.nicovideo.jp/watch/" + PathMaker.getVideoID(this._videoID);
+                    var videoUrl: String = "https://www.nicovideo.jp/watch/" + PathMaker.getVideoID(this._videoID);
 
                     renewCommentAtStart(PathMaker.getVideoID(this._videoID), videoPath, thumbInfoPath, autoPlay);
                 } else {
@@ -649,7 +649,7 @@ package org.mineap.nndd.player {
                     HistoryManager.instance.addVideoByNNDDVideo(video);
                 } else {
                     video = new NNDDVideo(
-                        "http://www.nicovideo.jp/watch/" + PathMaker.getVideoID(_videoID),
+                        "https://www.nicovideo.jp/watch/" + PathMaker.getVideoID(_videoID),
                         videoPlayer.title,
                         false,
                         null,
@@ -3023,7 +3023,7 @@ package org.mineap.nndd.player {
             var nnddVideo: NNDDVideo = libraryManager.isExist(videoId);
 
             if (isStreamingPlay || nnddVideo == null) {
-                playMovie("http://www.nicovideo.jp/watch/" + videoId);
+                playMovie("https://www.nicovideo.jp/watch/" + videoId);
             } else {
                 playMovie(nnddVideo.getDecodeUrl());
             }
@@ -3418,7 +3418,7 @@ package org.mineap.nndd.player {
 
                                 videoInfoView.pubUserId = "user/" + watchVideoPage.watcher.getPubUserId();
                                 videoInfoView.pubUserLinkButtonText =
-                                    "http://www.nicovideo.jp/" + videoInfoView.pubUserId;
+                                    "https://www.nicovideo.jp/" + videoInfoView.pubUserId;
                                 videoInfoView.pubUserNameIconUrl = watchVideoPage.watcher.getPubUserIconUrl();
                                 videoInfoView.pubUserName = watchVideoPage.watcher.getPubUserName();
 
@@ -3434,7 +3434,7 @@ package org.mineap.nndd.player {
                                 }
                                 videoInfoView.pubUserId = "channel/" + id;
                                 videoInfoView.pubUserLinkButtonText =
-                                    "http://ch.nicovideo.jp/" + videoInfoView.pubUserId;
+                                    "https://ch.nicovideo.jp/" + videoInfoView.pubUserId;
                                 videoInfoView.pubUserNameIconUrl = watchVideoPage.watcher.getChannelIconUrl();
                                 videoInfoView.pubUserName = watchVideoPage.watcher.getChannelName();
 
@@ -3965,7 +3965,7 @@ package org.mineap.nndd.player {
                 var video: NNDDVideo = libraryManager.isExist(videoId);
                 if (video == null) {
                     //無いときはニコ動にアクセス
-                    url = "http://www.nicovideo.jp/watch/" + videoId;
+                    url = "https://www.nicovideo.jp/watch/" + videoId;
                 } else {
                     url = video.getDecodeUrl();
                 }

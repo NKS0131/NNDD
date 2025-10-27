@@ -18,7 +18,7 @@ package org.mineap.nndd.util {
 
         /**
          * ランキングからカテゴリを抽出する正規表現です。
-         * <a class="tab_a1" href="http://www.nicovideo.jp/ranking/mylist/daily/music"><div>音楽</div></a>
+         * <a class="tab_a1" href="https://www.nicovideo.jp/ranking/mylist/daily/music"><div>音楽</div></a>
          */
         public static var rankingCategoryPattern: RegExp
             = /<a class="tab_.." href="https?:\/\/www\.nicovideo\.jp\/ranking\/\w+\/\w+\/([^"]*)"><div>([^<]*)<\/div><\/a>/ig;

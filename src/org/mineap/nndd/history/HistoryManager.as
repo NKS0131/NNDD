@@ -339,7 +339,7 @@ package org.mineap.nndd.history {
                                                   dataGridColumn_condition: "未ダウンロード",
                                                   dataGridColumn_count: historyProvider[i].dataGridColumn_count,
                                                   dataGridColumn_time: historyProvider[i].dataGridColumn_time,
-                                                  dataGridColumn_url: "http://www.nicovideo.jp/watch/" + videoId
+                                                  dataGridColumn_url: "https://www.nicovideo.jp/watch/" + videoId
                                               }, i);
 
                 } else {

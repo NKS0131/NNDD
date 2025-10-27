@@ -185,7 +185,7 @@ package org.mineap.nndd {
         public static var FAIL_MOVE_FILE: String = "ファイルの移動に失敗";
         public static var FAIL_ARGUMENT_BOOT: String = "引数で指定された値を使った動画の再生に失敗";
 
-        public static var ARGUMENT_FORMAT: String = "例)nndd.exe -d http://www.nicovideo.jp/watch/ex0000\n※-dオプションをつけるとDLリストに追加、つけないとストリーミング再生。";
+        public static var ARGUMENT_FORMAT: String = "例)nndd.exe -d https://www.nicovideo.jp/watch/ex0000\n※-dオプションをつけるとDLリストに追加、つけないとストリーミング再生。";
 
         public static const DONOT_USE_CHAR_FOR_FILE_NAME: String = "/ : ? \\ * \" % < > | # ;";
 

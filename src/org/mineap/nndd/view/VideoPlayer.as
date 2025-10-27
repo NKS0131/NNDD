@@ -214,7 +214,7 @@ public function setTagArray(tags: Vector.<PlayerTagString>): void {
             replacedTagStr = replacedTagStr.replace(myPattern, "&quot;");
 
             text += "<a href=\"event:" + replacedTagStr + "\"><u><font color=\"#0000ff\">" + replacedTagStr +
-                    "</font></u></a>" + "<a href=\"http://dic.nicovideo.jp/a/" + encodeURIComponent(tag) +
+                    "</font></u></a>" + "<a href=\"https://dic.nicovideo.jp/a/" + encodeURIComponent(tag) +
                     "\"><font color=\"#0000ff\">【<u>百</u>】</font></a>" + lockStr + "  ";
         } else {
             text += tag + "  ";
@@ -408,7 +408,7 @@ private function addPlayListContextMenuItemClicked(event: ContextMenuEvent): voi
         return;
     }
     var videos: Array = new Array();
-    videos.push(new NNDDVideo("http://www.nicovideo.jp/watch/" + videoId, this.title));
+    videos.push(new NNDDVideo("https://www.nicovideo.jp/watch/" + videoId, this.title));
 
     PlayListManager.instance.addNNDDVideos(pIndex, videos);
 
@@ -1051,7 +1051,7 @@ private function canvasVideoDroped(event: NativeDragEvent): void {
                 }
                 var videoId: String = PathMaker.getVideoID(url);
                 if (videoId != null) {
-                    url = "http://www.nicovideo.jp/watch/" + videoId;
+                    url = "https://www.nicovideo.jp/watch/" + videoId;
                     playerController.playMovie(url);
                     return;
                 }
@@ -1069,7 +1069,7 @@ private function canvasVideoDroped(event: NativeDragEvent): void {
         }
         var videoId: String = PathMaker.getVideoID(url);
         if (videoId != null) {
-            url = "http://www.nicovideo.jp/watch/" + videoId;
+            url = "https://www.nicovideo.jp/watch/" + videoId;
             playerController.playMovie(url);
             return;
         }
@@ -1232,7 +1232,7 @@ private function infoAreaLinkClicked(event: TextEvent): void {
     } else if (event.text.indexOf("watch/") !== -1) {
         var videoId: String = PathMaker.getVideoID(event.text);
 //		trace(videoId);
-        playerController.playMovie("http://www.nicovideo.jp/watch/" + videoId);
+        playerController.playMovie("https://www.nicovideo.jp/watch/" + videoId);
     } else {
         trace(event);
     }
@@ -1311,7 +1311,7 @@ public function copyVideoUrl(event: Event): void {
     var videoId: String = PathMaker.getVideoID(this.title);
 
     if (videoId != null && videoId) {
-        var url: String = "http://www.nicovideo.jp/watch/" + videoId;
+        var url: String = "https://www.nicovideo.jp/watch/" + videoId;
         Clipboard.generalClipboard.setData(ClipboardFormats.TEXT_FORMAT, url);
     }
 }
@@ -1325,7 +1325,7 @@ public function copyVideoUrlWithTitle(event: Event): void {
             str = str.substr(0, str.indexOf("- ["));
         }
 
-        str = str + " - http://www.nicovideo.jp/watch/" + videoId;
+        str = str + " - https://www.nicovideo.jp/watch/" + videoId;
         Clipboard.generalClipboard.setData(ClipboardFormats.TEXT_FORMAT, str);
     }
 }

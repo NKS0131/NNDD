@@ -191,7 +191,7 @@ package org.mineap.nndd {
                                             dataGridColumn_videoInfo: videoStatus,
                                             dataGridColumn_condition: videoCondition,
                                             dataGridColumn_videoPath: localURL,
-                                            dataGridColumn_nicoVideoUrl: "http://www.nicovideo.jp/watch/" +
+                                            dataGridColumn_nicoVideoUrl: "https://www.nicovideo.jp/watch/" +
                                                                          searchItem.videoId
                                         });
 

@@ -1909,7 +1909,7 @@ private function ownerTextLinkClicked(event: TextEvent): void {
     } else if (event.text.indexOf("watch/") !== -1) {
         var videoId: String = PathMaker.getVideoID(event.text);
 //		trace(videoId);
-        playerController.playMovie("http://www.nicovideo.jp/watch/" + videoId);
+        playerController.playMovie("https://www.nicovideo.jp/watch/" + videoId);
     } else {
         trace(event);
     }
