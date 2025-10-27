@@ -20,6 +20,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/NKS0131/NNDD.git
           git submodule update --remote --init --recursive
           if [ -n "$(git status --porcelain)" ]; then
             git add .
