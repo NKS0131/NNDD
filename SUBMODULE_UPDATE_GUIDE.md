@@ -34,8 +34,10 @@ nicovideo4asの変更がマージされたら、NNDDリポジトリで以下を�
 
 ```bash
 cd nicovideo4as
-git checkout master
-git pull origin master
+# デフォルトブランチをチェックアウト（masterまたはmain）
+git fetch origin
+git checkout $(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
+git pull
 cd ..
 git add nicovideo4as
 git commit -m "Update nicovideo4as submodule to include login fixes"
@@ -44,8 +46,13 @@ git push
 
 ## 現在のサブモジュール状態
 
-- 現在のコミット: `2ea60cb` (ローカルのfix-login-endpointブランチ)
-- マスターのコミット: `2bb1517`
+サブモジュールの現在の状態を確認するには：
+
+```bash
+cd nicovideo4as
+git log --oneline -5
+git status
+```
 
 ## 代替方法（手動適用）
 
