@@ -53,7 +53,7 @@
 5. ログインが成功することを確認
 
 ### 注意事項
-この修正により、2018年に実装された古いAPIエンドポイントから、現在も有効な正しいエンドポイントに変更されました。多段階認証（2FA）も引き続き動作します。
+この修正により、2018年に実装された古いAPIエンドポイントから、現在も有効な正しいエンドポイントに変更されました。多段階認証（2FA）も引き続き動作する想定ですが、テストでの確認が必要です。
 
 ---
 
@@ -108,7 +108,7 @@ Basic test:
 5. Verify successful login
 
 ### Notes
-This fix updates from the outdated API endpoint (implemented in 2018) to the currently valid endpoint. Multi-factor authentication (2FA) continues to work.
+This fix updates from the outdated API endpoint (implemented in 2018) to the currently valid endpoint. Multi-factor authentication (2FA) is expected to continue working, but should be verified through testing.
 
 ---
 
