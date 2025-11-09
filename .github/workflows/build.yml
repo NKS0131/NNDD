@@ -57,10 +57,21 @@ jobs:
           java -jar $AIR_HOME/lib/adt.jar -certificate -cn SelfSigned 2048-RSA certificate_no_password.pfx ''
           java -jar $AIR_HOME/lib/adt.jar -package -tsa none -storetype pkcs12 -keystore certificate_no_password.pfx -storepass '' NNDD.air NNDD-app.xml NNDD.swf icon32.png icon128.png icon48.png icon16.png CategoryList.json
 
+      - name: build-test
+        run: |
+          cd src
+          java -jar $AIR_HOME/lib/adt.jar -certificate -cn SelfSigned 2048-RSA certificate_no_password_test.pfx ''
+          java -jar $AIR_HOME/lib/adt.jar -package -tsa none -storetype pkcs12 -keystore certificate_no_password_test.pfx -storepass '' NNDD-test.air NNDD-app-test.xml NNDD.swf icon32.png icon128.png icon48.png icon16.png CategoryList.json
+
       - uses: actions/upload-artifact@v4
         with:
           name: air
           path: src/NNDD.air
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: air-test
+          path: src/NNDD-test.air
 
   build-exe:
     needs: build-air
@@ -93,6 +104,37 @@ jobs:
           name: exe
           path: NNDD.exe
 
+  build-exe-test:
+    needs: build-air
+    runs-on: windows-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: air-test
+
+      - uses: actions/cache@v4
+        id: adobe_airsdk_cache
+        with:
+          path: AdobeAIRSDK.zip
+          key: http://fpdownload.macromedia.com/air/win/download/32.0/AdobeAIRSDK.zip
+          enableCrossOsArchive: true
+      - if: steps.adobe_airsdk_cache.outputs.cache-hit != 'true'
+        run: curl http://fpdownload.macromedia.com/air/win/download/32.0/AdobeAIRSDK.zip -O
+
+      - name: setup
+        shell: bash
+        run: |
+          unzip AdobeAIRSDK.zip -d air
+
+      - name: build
+        run: |
+          air/bin/adt.bat -package -target native NNDD-test.exe NNDD-test.air
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: exe-test
+          path: NNDD-test.exe
+
   build-dmg:
     needs: build-air
     runs-on: macos-latest
@@ -122,3 +164,33 @@ jobs:
         with:
           name: dmg
           path: NNDD.dmg
+
+  build-dmg-test:
+    needs: build-air
+    runs-on: macos-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: air-test
+
+      - uses: actions/cache@v4
+        id: adobe_airsdk_cache
+        with:
+          path: AdobeAIRSDK.dmg
+          key: https://airdownload.adobe.com/air/mac/download/32.0/AdobeAIRSDK.dmg
+      - if: steps.adobe_airsdk_cache.outputs.cache-hit != 'true'
+        run: curl https://airdownload.adobe.com/air/mac/download/32.0/AdobeAIRSDK.dmg -O
+
+      - name: setup
+        run: |
+          hdiutil mount AdobeAIRSDK.dmg
+          ditto '/Volumes/AIR SDK' air
+
+      - name: build
+        run: |
+          air/bin/adt -package -target native NNDD-test.dmg NNDD-test.air
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dmg-test
+          path: NNDD-test.dmg

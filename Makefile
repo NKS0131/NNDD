@@ -1,11 +1,17 @@
-.PHONY: build with-docker builder-img pathcheck certificate-arg-check certificate certificate-with-docker help
+.PHONY: build build-test with-docker with-docker-test builder-img pathcheck certificate-arg-check certificate certificate-with-docker help
 .DEFAULT_GOAL=help
 
 build: ## NNDD.air をビルドします
 	@cd src && make build
 
+build-test: ## NNDD-test.air をビルドします（テスト用）
+	@cd src && make build-test
+
 with-docker: ## Dockerコンテナを使って NNDD.air をビルドします
 	@cd src && make with-docker
+
+with-docker-test: ## Dockerコンテナを使って NNDD-test.air をビルドします（テスト用）
+	@docker run --rm -it -v $$(pwd):/root/NNDD nndd-builder /bin/sh -c 'cd /root/NNDD/src && make build-test'
 
 builder-img: ## NNDDビルド用のDockerイメージをビルドします
 	@cd containers/builder && make build

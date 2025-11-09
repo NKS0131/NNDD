@@ -31,6 +31,19 @@ Windows用インストーラ(.exe)及びmacOS用イメージ(.dmg)でインス�
 これらのバージョンをご利用の際には[Releases][]のページからご希望のバージョンをダウンロード/インストールしてご利用下さい。
 不具合等ありましたら[Issues][]にご報告頂けると有り難いです。
 
+## テスト版について
+
+開発中の機能やバグ修正を本番環境に影響を与えずにテストするため、通常版とは別にインストール可能なテスト版をビルドできます。
+
+テスト版は通常版と異なるアプリケーションIDを持つため、同じPCに両方のバージョンをインストールして使用することができます。
+
+- アプリケーションID: `org.mineap.nndd-5ch-test`
+- ファイル名: `NNDD-5ch-test`
+- 表示名: `NNDD-5ch (Test)`
+- 設定ディレクトリ: `[org.mineap.nndd-5ch-test]`
+
+テスト版のビルド方法については[TESTING_GUIDE.md][]をご確認ください。
+
 
 ## NNDD+DMCからの設定の引継ぎ
 NNDD-5chでは, NNDD+DMCと異なる場所に設定ファイルが保存されます。
@@ -75,3 +88,4 @@ MITライセンスに示されるとおり, 本ソフトウェアは**無保証*
 [Releases]: https://github.com/nndd-reboot/NNDD/releases
 [5ch nndd]: https://egg.5ch.net/test/read.cgi/software/1701226145/l50
 [discord nndd]: https://discord.gg/KhkyjwuJRh
+[TESTING_GUIDE.md]: https://github.com/nndd-reboot/NNDD/blob/master/TESTING_GUIDE.md
