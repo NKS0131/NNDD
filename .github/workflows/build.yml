@@ -41,14 +41,36 @@ jobs:
           path: OSMF2_0.swc
           key: https://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/frameworks/libs/OSMF2_0.swc?format=raw
       - if: steps.flex_osmf20_cache.outputs.cache-hit != 'true'
-        run: curl https://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/frameworks/libs/OSMF2_0.swc?format=raw -o OSMF2_0.swc
+  run: |
+    curl -fSL "https://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/frameworks/libs/OSMF2_0.swc?format=raw" -o OSMF2_0.swc
+    echo "Downloaded OSMF2_0.swc:"
+    ls -lh OSMF2_0.swc
+    file OSMF2_0.swc
+    # size sanity check (例: 1KB 未満なら異常扱い)
+    if [ "$(stat -c%s OSMF2_0.swc)" -lt 1024 ]; then
+      echo "OSMF2_0.swc is unexpectedly small; aborting."
+      cat OSMF2_0.swc || true
+      exit 1
+    fi
 
-      - name: setup
-        run: |
-          tar xzf apache-flex-sdk-4.16.1-bin.tar.gz
-          mv apache-flex-sdk-4.16.1-bin $AIR_HOME
-          unzip AdobeAIRSDK.zip -d $AIR_HOME
-          cp OSMF2_0.swc $AIR_HOME/frameworks/libs/osmf.swc
+- name: setup
+  run: |
+    tar xzf apache-flex-sdk-4.16.1-bin.tar.gz
+    mv apache-flex-sdk-4.16.1-bin $AIR_HOME
+    unzip AdobeAIRSDK.zip -d $AIR_HOME
+    # validate SWC is actually a zip/SWC before copying
+    if python - <<'PY'
+import zipfile,sys
+ok = zipfile.is_zipfile("OSMF2_0.swc")
+sys.exit(0 if ok else 1)
+PY
+    then
+      cp OSMF2_0.swc $AIR_HOME/frameworks/libs/osmf.swc
+    else
+      echo "OSMF2_0.swc is not a valid SWC (zip) file; aborting."
+      file OSMF2_0.swc
+      exit 1
+    fi
 
       - name: build
         run: |
