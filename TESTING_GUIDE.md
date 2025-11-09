@@ -1,5 +1,35 @@
 # Testing Guide for Login Fix
 
+## Test Version Installation
+
+NNDD-5ch now provides a separate test version that can be installed alongside the production version. This allows you to test new features or changes without affecting your main installation.
+
+### Building the Test Version
+
+#### Option 1: Using Docker (Recommended)
+```bash
+make builder-img
+make with-docker-test
+```
+
+#### Option 2: Local Build
+```bash
+# Ensure AIR_HOME is set
+export AIR_HOME=/path/to/air-sdk
+
+# Build test version
+cd src
+make build-test
+```
+
+The test version will have:
+- Application ID: `org.mineap.nndd-5ch-test`
+- Filename: `NNDD-5ch-test`
+- Display name: `NNDD-5ch (Test)`
+- Separate settings directory: `[org.mineap.nndd-5ch-test]`
+
+This means the test version can be installed side-by-side with the production version without conflicts.
+
 ## Prerequisites
 
 ### Build Environment

@@ -1,7 +1,9 @@
-.PHONY: build pathcheck with-docker help
+.PHONY: build build-test pathcheck with-docker help
 .DEFAULT_GOAL=help
 
 build: NNDD.air ## NNDD.air をビルドします
+
+build-test: NNDD-test.air ## NNDD-test.air をビルドします（テスト用）
 
 pathcheck:
 	@if [ -z "$$AIR_HOME" ]; then \
@@ -14,6 +16,10 @@ pathcheck:
 NNDD.air: pathcheck NNDD.swf
 	@java -jar $$AIR_HOME/lib/adt.jar -certificate -cn SelfSigned 2048-RSA certificate_no_password.pfx ''
 	@java -jar $$AIR_HOME/lib/adt.jar -package -storetype pkcs12 -keystore certificate_no_password.pfx -storepass '' NNDD.air NNDD-app.xml NNDD.swf icon32.png icon128.png icon48.png icon16.png CategoryList.json
+
+NNDD-test.air: pathcheck NNDD.swf
+	@java -jar $$AIR_HOME/lib/adt.jar -certificate -cn SelfSigned 2048-RSA certificate_no_password_test.pfx ''
+	@java -jar $$AIR_HOME/lib/adt.jar -package -storetype pkcs12 -keystore certificate_no_password_test.pfx -storepass '' NNDD-test.air NNDD-app-test.xml NNDD.swf icon32.png icon128.png icon48.png icon16.png CategoryList.json
 
 NNDD.swf: pathcheck
 	@$$AIR_HOME/bin/amxmlc NNDD.mxml -compiler.include-libraries ../libs/* -warnings=false
